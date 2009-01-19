@@ -117,6 +117,7 @@ to display News Items from _all_ categories:
 %FORMELEMENT{type="hidden" name="Category" default="%CATEGORY%"}% \
 %FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}% \
 %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}% \
+%FORMELEMENT{type="hidden" name="%IF{"defined 'ITEM'" then="item" else="nothingtoseehere"}%" default="%ITEM%"}% \
 %FORMERROR{"%TOPIC%%BASETOPIC%%CATEGORY%"}%  | %FORMELEMENT{
 	 type="submit"
 	 buttonlabel="Submit"
