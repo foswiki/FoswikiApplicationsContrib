@@ -10,12 +10,15 @@
 
 ---+ Latest News
 
+
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
 %SEARCH{
-   "form.name~'%BASEWEB%.%BASETOPIC%' AND 
+	web="FoswikiApplicationData"
+   "form.name~'%WEB%.%TOPIC%' AND 
      fields[name='Show'].value = 'show' AND
-     ( ( '%LASTMONTHDATE%' = '' AND d2n(fields[name='Expiry'].value) >= d2n('%DATE%') ) OR
-      ('%LASTMONTHDATE%' != ''  AND d2n(fields[name='Date'].value) >= d2n('%SHOWFROM%') AND d2n(fields[name='Date'].value) < d2n('%SHOWTO%') ) )"
+     ( ( '%URLPARAM{"showfrom" default=""}%' = '' AND d2n(fields[name='Expiry'].value) >= d2n('%DATE%') ) OR
+      ('%URLPARAM{"showfrom" default=""}%' != ''  AND d2n(fields[name='Date'].value) >= d2n('%URLPARAM{"showfrom" default=""}%') AND 
+      d2n(fields[name='Date'].value) < d2n('%URLPARAM{"showto" default=""}%') ) )"
    type="query"
    nonoise="on"
    order="formfield(Date)"
@@ -104,9 +107,6 @@ hideimgright="%ICONURLPATH{toggleclose-small}%"
 | Show | checkbox | 1 | show | | |
 | Expiry      | date     | 16        |                | %CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}% | m  |
 
-   * Set LASTMONTHDATE = %URLPARAM{"showfrom" default=""}%
-   * Set SHOWFROM = %URLPARAM{"showfrom" default=""}%
-   * Set SHOWTO = %URLPARAM{"showto" default=""}%
 
 
 
