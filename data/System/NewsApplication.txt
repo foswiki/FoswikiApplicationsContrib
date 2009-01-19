@@ -1,4 +1,19 @@
+---++ %TOPIC% Usage
+To Add the news application to any topic, you can use the following TML:
 
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%=
+   
+News items can be filtered by category - to set this,  change the INCLUDE to
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" CATEGORY="finance"}%=
+   
+to display News Items from _all_ categories:
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" CATEGORY="*"}%=
+
+
+---++ Application definition
+%STARTINCLUDE%
 <div class="foswikiRight">
 [[%BASEWEB%.%BASETOPIC%][Latest News]] 
 [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-12-1;showto=2009-1-1][Dec 2008]] 
@@ -13,34 +28,35 @@
 
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
 %SEARCH{
-	web="FoswikiApplicationData"
-   "form.name~'%WEB%.%TOPIC%' AND 
-     fields[name='Show'].value = 'show' AND
-     ( ( '%URLPARAM{"showfrom" default=""}%' = '' AND d2n(fields[name='Expiry'].value) >= d2n('%DATE%') ) OR
-      ('%URLPARAM{"showfrom" default=""}%' != ''  AND d2n(fields[name='Date'].value) >= d2n('%URLPARAM{"showfrom" default=""}%') AND 
-      d2n(fields[name='Date'].value) < d2n('%URLPARAM{"showto" default=""}%') ) )"
-   type="query"
-   nonoise="on"
-   order="formfield(Date)"
-   header="| *Date Posted* | *Message*  | ** |"
-   format="| $formfield(Date) | $formfield(Message) - $formfield(Link) | [[$web.$topic][$percntICON{uweb-bo}$percnt]]  |"
+	 web="FoswikiApplicationData"
+	 "form.name~'%WEB%.%TOPIC%' AND 
+	 fields[name='Show'].value = 'show' AND
+	 fields[name='Category'].value ~ '%URLPARAM{"category" default="%CATEGORY%"}%' AND
+	 ( ( '%URLPARAM{"showfrom" default=""}%' = '' AND d2n(fields[name='Expiry'].value) >= d2n('%DATE%') ) OR
+	 ('%URLPARAM{"showfrom" default=""}%' != ''  AND d2n(fields[name='Date'].value) >= d2n('%URLPARAM{"showfrom" default=""}%') AND 
+	 d2n(fields[name='Date'].value) < d2n('%URLPARAM{"showto" default=""}%') ) )"
+	 type="query"
+	 nonoise="on"
+	 order="formfield(Date)"
+	 header="| *Date Posted* | *Message*  | ** |"
+	 format="| $formfield(Date) | $formfield(Message) - $formfield(Link) | [[$web.$topic][$percntICON{uweb-bo}$percnt]]  |"
 }%
 
 ---
 %TWISTY{
-mode="div"
-showlink="<b>Post a news Item</b>"
-hidelink="Hide&nbsp;"
-showimgright="%ICONURLPATH{toggleopen-small}%"
-hideimgright="%ICONURLPATH{toggleclose-small}%"
+	 mode="div"
+	 showlink="<b>Post a news Item</b>"
+	 hidelink="Hide&nbsp;"
+	 showimgright="%ICONURLPATH{toggleopen-small}%"
+	 hideimgright="%ICONURLPATH{toggleclose-small}%"
 }%
 
 %STARTFORM{
-name="newItem"
-action="save"
-topic="FoswikiApplicationData.NewsApplicationAUTOINC0000"
-method="POST"
-redirectto="%BASEWEB%.%BASETOPIC%"
+	 name="newItem"
+	 action="save"
+	 topic="FoswikiApplicationData.NewsApplicationAUTOINC0000"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
 }%
 <style>
 .formTitle { width:200px; }
@@ -51,54 +67,57 @@ overflow:hidden;
 }
 </style>
 %FORMELEMENT{
- 	 mandatory="on"
-        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
-        default="%DISPLAYTIME{"$day $month $year"}%"
-type="date"
-name="Date"
-title="Date Posted"
-size="16"
+	 mandatory="on"
+	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 default="%DISPLAYTIME{"$day $month $year"}%"
+	 type="date"
+	 name="Date"
+	 title="Date Posted"
+	 size="16"
 }%
 %FORMELEMENT{
- 	 mandatory="on"
-        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
-        default="%CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}%"
-type="date"
-name="Expiry"
-title="Expiry date"
-size="16"
+	 mandatory="on"
+	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 default="%CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}%"
+	 type="date"
+	 name="Expiry"
+	 title="Expiry date"
+	 size="16"
 }%
 %FORMELEMENT{
- 	 mandatory="on"
-        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
-type="text"
-name="Message"
-title="Message"
-size="70"
+	 mandatory="on"
+	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 type="text"
+	 name="Message"
+	 title="Message"
+	 size="70"
 }%
 %FORMELEMENT{
-        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
-type="text"
-name="Link"
-title="Link"
-size="70"
+	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 type="text"
+	 name="Link"
+	 title="Link"
+	 size="70"
 }%
 %FORMELEMENT{type="hidden" name="Show" default="show"}%
+%FORMELEMENT{type="hidden" name="Category" default="%CATEGORY%"}%
 %FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}%
 %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}%
 %FORMELEMENT{
-type="submit"
-buttonlabel="Post news item"
+	 type="submit"
+	 buttonlabel="Post news item"
 }%
 %ENDFORM%
 %ENDTWISTY%
+%STOPINCLUDE%
+
 
 %TWISTY{
-mode="div"
-showlink="Item definition (will be hidden from users)"
-hidelink="Hide&nbsp;"
-showimgright="%ICONURLPATH{toggleopen-small}%"
-hideimgright="%ICONURLPATH{toggleclose-small}%"
+	 mode="div"
+	 showlink="Item definition (will be hidden from users)"
+	 hidelink="Hide&nbsp;"
+	 showimgright="%ICONURLPATH{toggleopen-small}%"
+	 hideimgright="%ICONURLPATH{toggleclose-small}%"
 }%
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Date      | date     | 16        |                | %DATE% | m  |
@@ -106,8 +125,7 @@ hideimgright="%ICONURLPATH{toggleclose-small}%"
 | Link | text | 64 | | blah blah... |   |
 | Show | checkbox | 1 | show | | |
 | Expiry      | date     | 16        |                | %CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}% | m  |
-
-
-
-
+| Category | text | 64 | | ||
 %ENDTWISTY%
+---+++ Defaults for this topic only
+   * Set CATEGORY=*
