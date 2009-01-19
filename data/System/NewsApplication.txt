@@ -65,8 +65,13 @@ to display News Items from _all_ categories:
    * TODO:  fix Category - as dropdown?
 
 ---
+---+++ view item format
+<verbatim>
 %STARTSECTION{"view_item"}%| %FORMFIELD{"Date" topic="%ITEM%"}% | %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
+</verbatim>
 
+---+++ edit item format
+<verbatim>
 %STARTSECTION{"edit_item"}%| %STARTFORM{
 	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
 	 action="save"
@@ -116,17 +121,9 @@ to display News Items from _all_ categories:
 	 type="submit"
 	 buttonlabel="Submit"
 }% %ENDFORM% |%ENDSECTION{"edit_item"}%
+</verbatim>
 
-
-
-
-%TWISTY{
-	 mode="div"
-	 showlink="Item definition (will be hidden from users)"
-	 hidelink="Hide&nbsp;"
-	 showimgright="%ICONURLPATH{toggleopen-small}%"
-	 hideimgright="%ICONURLPATH{toggleclose-small}%"
-}%
+---+++ DataForm definition
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Date      | date     | 16        |                | %DATE% | m  |
 | Message | text | 64 |  |  | m  |
@@ -134,6 +131,6 @@ to display News Items from _all_ categories:
 | Show | checkbox | 1 | show | | |
 | Expiry      | date     | 16        |                | %CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}% | m  |
 | Category | text | 64 | | ||
-%ENDTWISTY%
+
 ---+++ Defaults for this topic only
    * Set CATEGORY=*
