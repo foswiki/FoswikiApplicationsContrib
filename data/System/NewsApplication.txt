@@ -121,7 +121,10 @@ to display News Items from _all_ categories:
 %FORMERROR{"%TOPIC%%BASETOPIC%%CATEGORY%"}%  | %FORMELEMENT{
 	 type="submit"
 	 buttonlabel="Submit"
-}% %ENDFORM% |%ENDSECTION{"edit_item"}%
+}% \
+%IF{"defined 'ITEM'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""}% \
+%ENDFORM% |%ENDSECTION{"edit_item"}%
+
 </verbatim>
 
 ---+++ DataForm definition
