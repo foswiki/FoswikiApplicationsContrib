@@ -11,6 +11,7 @@ One line description, required for extensions repository catalog.
 
 ---++ Examples
 ---+++ NewsApplication
+---+++ ImagesApplication
 
 ---++ Implementation details
 All applications use %SYSTEMWEB%.FormsPlugin, and store their data in a hidden FoswikiApplicationData web.

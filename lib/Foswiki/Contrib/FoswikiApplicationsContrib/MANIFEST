@@ -2,3 +2,21 @@
 data/System/FoswikiApplicationsContrib.txt 0644 Documentation
 lib/Foswiki/Contrib/FoswikiApplicationsContrib.pm 0644 Perl module
 
+#the bundled Applications
+data/System/NewsApplication.txt 0644 Documentation
+
+
+#The hidden data web
+data/FoswikiApplicationData/WebAtom.txt
+data/FoswikiApplicationData/WebChanges.txt
+data/FoswikiApplicationData/WebCreateNewTopic.txt
+data/FoswikiApplicationData/WebHome.txt
+data/FoswikiApplicationData/WebIndex.txt
+data/FoswikiApplicationData/WebLeftBar.txt
+data/FoswikiApplicationData/WebNotify.txt
+data/FoswikiApplicationData/WebPreferences.txt
+data/FoswikiApplicationData/WebRss.txt
+data/FoswikiApplicationData/WebSearch.txt
+data/FoswikiApplicationData/WebSearchAdvanced.txt
+data/FoswikiApplicationData/WebStatistics.txt
+data/FoswikiApplicationData/WebTopicList.txt
