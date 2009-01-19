@@ -24,7 +24,14 @@ to display News Items from _all_ categories:
 </div>
 
 ---+ Latest News
-
+<style>
+	 .formPluginTitle { width:200px; }
+	 .formValue { position:absolute;left:220px; }
+	 #patternTopBar, #patternClearHeaderCenter, #patternClearHeaderLeft, #patternClearHeaderRight, #patternTopBarContentsOuter, #patternTopBarContents {
+		  height:130px;
+		  overflow:hidden;
+	 }
+</style>
 
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
 %SEARCH{
@@ -41,74 +48,52 @@ to display News Items from _all_ categories:
 	 header="| *Date Posted* | *Message*  | ** |"
 	 format="| $formfield(Date) | $formfield(Message) - $formfield(Link) | [[$web.$topic][$percntICON{uweb-bo}$percnt]]  |"
 }%
-
----
-%TWISTY{
-	 mode="div"
-	 showlink="<b>Post a news Item</b>"
-	 hidelink="Hide&nbsp;"
-	 showimgright="%ICONURLPATH{toggleopen-small}%"
-	 hideimgright="%ICONURLPATH{toggleclose-small}%"
-}%
-
-%STARTFORM{
-	 name="newItem"
+| %STARTFORM{
+	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
 	 action="save"
 	 topic="FoswikiApplicationData.NewsApplicationAUTOINC0000"
 	 method="POST"
 	 redirectto="%BASEWEB%.%BASETOPIC%"
-}%
-<style>
-.formTitle { width:200px; }
-.formValue { position:absolute;left:200px; }
-#patternTopBar, #patternClearHeaderCenter, #patternClearHeaderLeft, #patternClearHeaderRight, #patternTopBarContentsOuter, #patternTopBarContents {
-height:130px;
-overflow:hidden;
-}
-</style>
-%FORMELEMENT{
+	 sep=" "
+	 showerrors="off"
+}% New Item | %FORMELEMENT{
 	 mandatory="on"
-	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span>%BR%"
 	 default="%DISPLAYTIME{"$day $month $year"}%"
 	 type="date"
 	 name="Date"
 	 title="Date Posted"
 	 size="16"
-}%
-%FORMELEMENT{
+}% %FORMELEMENT{
 	 mandatory="on"
-	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span> %BR%"
 	 default="%CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}%"
 	 type="date"
 	 name="Expiry"
 	 title="Expiry date"
 	 size="16"
-}%
-%FORMELEMENT{
+}% %FORMELEMENT{
 	 mandatory="on"
-	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span>%BR%"
 	 type="text"
 	 name="Message"
 	 title="Message"
 	 size="70"
-}%
-%FORMELEMENT{
-	 format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"
+}% %FORMELEMENT{
+	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span>%BR%"
 	 type="text"
 	 name="Link"
 	 title="Link"
 	 size="70"
-}%
-%FORMELEMENT{type="hidden" name="Show" default="show"}%
-%FORMELEMENT{type="hidden" name="Category" default="%CATEGORY%"}%
-%FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}%
-%FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}%
-%FORMELEMENT{
+}% %FORMELEMENT{type="hidden" name="Show" default="show"}% \
+%FORMELEMENT{type="hidden" name="Category" default="%CATEGORY%"}% \
+%FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}% \
+%FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}% \
+%FORMERROR{"%TOPIC%%BASETOPIC%%CATEGORY%"}%  | %FORMELEMENT{
 	 type="submit"
-	 buttonlabel="Post news item"
-}%
-%ENDFORM%
-%ENDTWISTY%
+	 buttonlabel="Submit"
+}% %ENDFORM% |
+
 %STOPINCLUDE%
 
 
