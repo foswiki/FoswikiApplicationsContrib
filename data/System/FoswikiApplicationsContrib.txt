@@ -1,0 +1,33 @@
+---+!! !FoswikiApplicationsContrib
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Dataform driven applications and framework
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+---++ Examples
+---+++ NewsApplication
+
+---++ Implementation details
+All applications use %SYSTEMWEB%.FormsPlugin, and store their data in a hidden FoswikiApplicationData web.
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+
+|  Author(s): | Foswiki:Main.SvenDowideit a [[http://wikiring.com][WikiRing]] founding partner |
+|  Copyright: | &copy; SvenDowideit@fosiki.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License v3)]] |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/FoswikiApplicationsContrib |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->

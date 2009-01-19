@@ -1,0 +1,4 @@
+# Release manifest for FoswikiApplicationsContrib
+data/System/FoswikiApplicationsContrib.txt 0644 Documentation
+lib/Foswiki/Contrib/FoswikiApplicationsContrib.pm 0644 Perl module
+
