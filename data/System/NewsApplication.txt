@@ -11,6 +11,10 @@ to display News Items from _all_ categories:
 
    * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" CATEGORY="*"}%=
 
+---+++ urlparams
+   * ?showfrom and ?showto - dates to filter output between
+   * ?category - same as CATEGORY filter above
+   * ?item=FoswikiApplicationData.NewsApplication123 - edit this item inline in the table.
 
 ---++ Application definition
 %STARTINCLUDE%
@@ -46,20 +50,36 @@ to display News Items from _all_ categories:
 	 nonoise="on"
 	 order="formfield(Date)"
 	 header="| *Date Posted* | *Message*  | ** |"
-	 format="| $formfield(Date) | $formfield(Message) - $formfield(Link) | [[$web.$topic][$percntICON{uweb-bo}$percnt]]  |"
+	 format="$percntINCLUDE{
+			   $quot%WEB%.%TOPIC%$quot
+			   nosection=$quotview_item$quot
+			   ITEM=$quot$web.$topic$quot
+			   section=$quot$percntIF{$quot'$web.$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
+			   }$percnt"
 }%
-| %STARTFORM{
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
+}%
+
+%IF{"defined 'item'" then="nothing" else="edit_item"}%
+
+---
+%STARTSECTION{"view_item"}%| %FORMFIELD{"Date" topic="%ITEM%"}% | %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
+
+   * TODO: use ITEM, not item urlparam - and consider fixing Category - as dorpdown?
+%STARTSECTION{"edit_item"}%| %STARTFORM{
 	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
 	 action="save"
-	 topic="FoswikiApplicationData.NewsApplicationAUTOINC0000"
+	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="FoswikiApplicationData.NewsApplicationAUTOINC0000"}%"
 	 method="POST"
 	 redirectto="%BASEWEB%.%BASETOPIC%"
 	 sep=" "
 	 showerrors="off"
-}% New Item | %FORMELEMENT{
+}% %IF{"defined 'ITEM'" then="Edit" else="New"}% Item | %FORMELEMENT{
 	 mandatory="on"
 	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span>%BR%"
-	 default="%DISPLAYTIME{"$day $month $year"}%"
+	 default="%FORMFIELD{"Date" topic="%ITEM%" alttext="%DISPLAYTIME{"$day $month $year"}%"}%"
 	 type="date"
 	 name="Date"
 	 title="Date Posted"
@@ -67,7 +87,7 @@ to display News Items from _all_ categories:
 }% %FORMELEMENT{
 	 mandatory="on"
 	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span> %BR%"
-	 default="%CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}%"
+	 default="%FORMFIELD{"Expiry" topic="%ITEM%" alttext="%DISPLAYTIME{"$day $month $year"}%"}%"
 	 type="date"
 	 name="Expiry"
 	 title="Expiry date"
@@ -75,12 +95,14 @@ to display News Items from _all_ categories:
 }% %FORMELEMENT{
 	 mandatory="on"
 	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span>%BR%"
+	 default="%FORMFIELD{"Message" topic="%ITEM%" alttext=""}%"
 	 type="text"
 	 name="Message"
 	 title="Message"
 	 size="70"
 }% %FORMELEMENT{
 	 format="<span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span>%BR%"
+	 default="%FORMFIELD{"Link" topic="%ITEM%" alttext=""}%"
 	 type="text"
 	 name="Link"
 	 title="Link"
@@ -92,7 +114,7 @@ to display News Items from _all_ categories:
 %FORMERROR{"%TOPIC%%BASETOPIC%%CATEGORY%"}%  | %FORMELEMENT{
 	 type="submit"
 	 buttonlabel="Submit"
-}% %ENDFORM% |
+}% %ENDFORM% |%ENDSECTION{"edit_item"}%
 
 %STOPINCLUDE%
 
