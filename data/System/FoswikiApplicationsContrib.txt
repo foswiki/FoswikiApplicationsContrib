@@ -16,6 +16,8 @@ One line description, required for extensions repository catalog.
 ---++ Implementation details
 All applications use %SYSTEMWEB%.FormsPlugin, and store their data in a hidden FoswikiApplicationData web.
 
+As the form definition is stored in the application topic, all data topics will also have the same name (with AUTOINC) to simplify searches.
+
 ---++ Installation Instructions
 
 %$INSTALL_INSTRUCTIONS%

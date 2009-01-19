@@ -35,7 +35,7 @@ hideimgright="%ICONURLPATH{toggleclose-small}%"
 %STARTFORM{
 name="newItem"
 action="save"
-topic="%WEB%.NewsItemAUTOINC0000"
+topic="FoswikiApplicationData.NewsApplicationAUTOINC0000"
 method="POST"
 redirectto="%BASEWEB%.%BASETOPIC%"
 }%
@@ -81,7 +81,7 @@ title="Link"
 size="70"
 }%
 %FORMELEMENT{type="hidden" name="Show" default="show"}%
-%FORMELEMENT{type="hidden" name="formtemplate" default="%BASEWEB%.%BASETOPIC%"}%
+%FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}%
 %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}%
 %FORMELEMENT{
 type="submit"
