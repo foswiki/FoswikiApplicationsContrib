@@ -61,13 +61,12 @@ to display News Items from _all_ categories:
 	"%WEB%.%TOPIC%"
 	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
 }%
-
-%IF{"defined 'item'" then="nothing" else="edit_item"}%
+%STOPINCLUDE%
+   * TODO:  fix Category - as dropdown?
 
 ---
 %STARTSECTION{"view_item"}%| %FORMFIELD{"Date" topic="%ITEM%"}% | %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
 
-   * TODO: use ITEM, not item urlparam - and consider fixing Category - as dorpdown?
 %STARTSECTION{"edit_item"}%| %STARTFORM{
 	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
 	 action="save"
@@ -116,7 +115,7 @@ to display News Items from _all_ categories:
 	 buttonlabel="Submit"
 }% %ENDFORM% |%ENDSECTION{"edit_item"}%
 
-%STOPINCLUDE%
+
 
 
 %TWISTY{
