@@ -16,15 +16,30 @@ to display News Items from _all_ categories:
    * ?category - same as CATEGORY filter above
    * ?item=FoswikiApplicationData.NewsApplication123 - edit this item inline in the table.
 
+---+++ TODO's
+   * search on topic prefix
+   * how to add 12 items at one time
+   * how to change a status on 12 items at once.
+   * fix Category - as dropdown?
+   * make edit button a JSPOPUP
+   * make generic so it can be applied to any data form
+   * add generic paging support
+   * add other views - a simple small list to side bar?
+   * add it to BugsContrib without editing BugsContrib?
+   * why is there no =default= or =noresults= param to SEARCH?
+   * where's =footer=
+   * add permissions - no point showing create&edit to people that can't
+
 ---++ Application definition
 %STARTINCLUDE%
 <div class="foswikiRight">
+%CALC{"$SET(show_from_number, $MIN($TIMEADD($TIME(),-1,month), $TIMEADD($TIME(%URLPARAM{showfrom}%), 3, month)))"}%
 [[%BASEWEB%.%BASETOPIC%][Latest News]] 
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-12-1;showto=2009-1-1][Dec 2008]] 
- [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-11-1;showto=2008-12-1][Nov 2008]] 
- [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-10-1;showto=2008-11-1][Oct 2008]] 
- [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-09-1;showto=2008-10-1][Aug 2008]] 
- [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-08-1;showto=2008-09-1][Jul 2008]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($GET(show_from_number), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($GET(show_from_number), $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),0,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-4,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-4,month), $mon $year)"}%]] 
 </div>
 
 ---+ Latest News
@@ -62,7 +77,6 @@ to display News Items from _all_ categories:
 	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
 }%
 %STOPINCLUDE%
-   * TODO:  fix Category - as dropdown?
 
 ---
 ---+++ view item format
