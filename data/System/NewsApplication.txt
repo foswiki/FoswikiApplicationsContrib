@@ -17,29 +17,28 @@ to display News Items from _all_ categories:
    * ?item=FoswikiApplicationData.NewsApplication123 - edit this item inline in the table.
 
 ---+++ TODO's
-   * search on topic prefix
+   * add other views - a simple small list to side bar?
+   * add permissions - no point showing create&edit to people that can't
    * how to add 12 items at one time
    * how to change a status on 12 items at once.
    * fix Category - as dropdown?
    * make edit button a JSPOPUP
    * make generic so it can be applied to any data form
    * add generic paging support
-   * add other views - a simple small list to side bar?
    * add it to BugsContrib without editing BugsContrib?
    * why is there no =default= or =noresults= param to SEARCH?
    * where's =footer=
-   * add permissions - no point showing create&edit to people that can't
 
 ---++ Application definition
 %STARTINCLUDE%
 <div class="foswikiRight">
-%CALC{"$SET(show_from_number, $MIN($TIMEADD($TIME(),-1,month), $TIMEADD($TIME(%URLPARAM{showfrom}%), 3, month)))"}%
+%CALC{"$SET(show_from_number, $MIN($TIMEADD($TIME($FORMATTIME($TIME(), $year-$month-1)),-1,month), $TIMEADD($TIME(%URLPARAM{showfrom}%), 3, month)))"}%
 [[%BASEWEB%.%BASETOPIC%][Latest News]] 
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($GET(show_from_number), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($GET(show_from_number), $mon $year)"}%]] 
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),0,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $mon $year)"}%]] 
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $mon $year)"}%]] 
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $mon $year)"}%]] 
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-4,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-4,month), $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($GET(show_from_number), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($GET(show_from_number), $day $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),0,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $day $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $day $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-2,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $day $mon $year)"}%]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-4,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-3,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-4,month), $day $mon $year)"}%]] 
 </div>
 
 ---+ Latest News
@@ -55,6 +54,7 @@ to display News Items from _all_ categories:
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
 %SEARCH{
 	 web="FoswikiApplicationData"
+	 topic="%TOPIC%*"
 	 "form.name~'%WEB%.%TOPIC%' AND 
 	 fields[name='Show'].value = 'show' AND
 	 fields[name='Category'].value ~ '%URLPARAM{"category" default="%CATEGORY%"}%' AND
