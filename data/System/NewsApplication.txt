@@ -81,7 +81,10 @@ to display News Items from _all_ categories:
 ---
 ---+++ view item format
 <verbatim>
-%STARTSECTION{"view_item"}%| %FORMFIELD{"Date" topic="%ITEM%"}% | %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
+%STARTSECTION{"view_item"}%| \
+	 %FORMFIELD{"Date" topic="%ITEM%"}% | \
+	 %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | \
+	  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%;showfrom=%URLPARAM{"showfrom" default=""}%;showto=%URLPARAM{"showto" default=""}%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
 </verbatim>
 
 ---+++ edit item format
