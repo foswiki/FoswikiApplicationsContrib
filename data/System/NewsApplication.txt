@@ -16,19 +16,6 @@ to display News Items from _all_ categories:
    * ?category - same as CATEGORY filter above
    * ?item=FoswikiApplicationData.NewsApplication123 - edit this item inline in the table.
 
----+++ TODO's
-   * add other views - a simple small list to side bar?
-   * add permissions - no point showing create&edit to people that can't
-   * how to add 12 items at one time
-   * how to change a status on 12 items at once.
-   * fix Category - as dropdown?
-   * make edit button a JSPOPUP
-   * make generic so it can be applied to any data form
-   * add generic paging support
-   * add it to BugsContrib without editing BugsContrib?
-   * why is there no =default= or =noresults= param to SEARCH?
-   * where's =footer=
-
 ---++ Application definition
 %STARTINCLUDE%
 <div class="foswikiRight">
@@ -92,7 +79,7 @@ to display News Items from _all_ categories:
 %STARTSECTION{"edit_item"}%| %STARTFORM{
 	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
 	 action="save"
-	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="FoswikiApplicationData.NewsApplicationAUTOINC0000"}%"
+	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="FoswikiApplicationData.%TOPIC%AUTOINC0000"}%"
 	 method="POST"
 	 redirectto="%BASEWEB%.%BASETOPIC%"
 	 sep=" "
@@ -130,8 +117,9 @@ to display News Items from _all_ categories:
 	 name="Link"
 	 title="Link"
 	 size="70"
-}% %FORMELEMENT{type="hidden" name="Show" default="show"}% \
-%FORMELEMENT{type="hidden" name="Category" default="%CATEGORY%"}% \
+}% \
+%FORMELEMENT{type="hidden" name="Show" default="%FORMFIELD{"Show" topic="%ITEM%" alttext="show"}%"}% \
+%FORMELEMENT{type="hidden" name="Category" default="%FORMFIELD{"Category" topic="%ITEM%" alttext="%CATEGORY%"}%"}% \
 %FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}% \
 %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}% \
 %FORMELEMENT{type="hidden" name="%IF{"defined 'ITEM'" then="item" else="nothingtoseehere"}%" default="%ITEM%"}% \

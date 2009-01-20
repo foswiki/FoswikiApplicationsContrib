@@ -11,6 +11,7 @@ One line description, required for extensions repository catalog.
 
 ---++ Examples
 ---+++ NewsApplication
+---+++ TodoApplication
 ---+++ ImagesApplication
 
 ---++ Implementation details

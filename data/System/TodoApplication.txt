@@ -1,0 +1,130 @@
+---++ %TOPIC% Usage
+To Add the todo application to any topic, you can use the following TML:
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%=
+   
+todo items can be filtered by category - to set this,  change the INCLUDE to
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" CATEGORY="finance"}%=
+   
+to display todo Items from _all_ categories:
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" CATEGORY="*"}%=
+
+---+++ urlparams
+   * ?category - same as CATEGORY filter above
+   * ?state= - filter based on state
+   * ?item=FoswikiApplicationData.TodoApplication123 - edit this item inline in the table.
+
+---++ Application definition
+%STARTINCLUDE%
+<div class="foswikiRight">
+%CALC{"$SET(show_from_number, $MIN($TIMEADD($TIME($FORMATTIME($TIME(), $year-$month-1)),-1,month), $TIMEADD($TIME($FORMATTIME($TIME(%URLPARAM{showfrom}%), $year-$month-15)), 3, month)))"}%
+[[%BASEWEB%.%BASETOPIC%][All]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?state=new][New]] 
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?state=inprogress][In progress]]
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?state=waiting][Waiting]]
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?state=done][done]]
+</div>
+
+---+ TODO's
+<style>
+	 .formPluginTitle { width:200px; }
+	 .NOTformValue { position:absolute;left:220px; }
+	 #patternTopBar, #patternClearHeaderCenter, #patternClearHeaderLeft, #patternClearHeaderRight, #patternTopBarContentsOuter, #patternTopBarContents {
+		  height:130px;
+		  overflow:hidden;
+	 }
+</style>
+
+%TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
+%SEARCH{
+	 web="FoswikiApplicationData"
+	 topic="%TOPIC%*"
+	 "form.name~'%WEB%.%TOPIC%' AND 
+	 fields[name='Category'].value ~ '%URLPARAM{"category" default="%CATEGORY%"}%' AND
+	 fields[name='State'].value ~ '%URLPARAM{"state" default="*"}%'
+	 "
+	 type="query"
+	 nonoise="on"
+	 order="formfield(Date)"
+	 header="| *State* | *Message*  | *Date* | ** |"
+	 format="$percntINCLUDE{
+			   $quot%WEB%.%TOPIC%$quot
+			   nosection=$quotview_item$quot
+			   ITEM=$quot$web.$topic$quot
+			   section=$quot$percntIF{$quot'$web.$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
+			   }$percnt"
+}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
+}%
+%STOPINCLUDE%
+
+---
+---+++ view item format
+<verbatim>
+%STARTSECTION{"view_item"}%|\
+	 %FORMFIELD{"State" topic="%ITEM%"}%    |%FORMFIELD{"Message" topic="%ITEM%"}%    | \
+	 %FORMFIELD{"Date" topic="%ITEM%"}%    | \
+	  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%;state=%URLPARAM{"state" default="*"}%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
+</verbatim>
+
+---+++ edit item format
+<verbatim>
+%STARTSECTION{"edit_item"}%| %STARTFORM{
+	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
+	 action="save"
+	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="FoswikiApplicationData.%TOPIC%AUTOINC0000"}%"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 showerrors="off"
+}% %FORMELEMENT{
+	 name="State"
+	 format="<span class='formValue'>  $e $m $h </span>%BR%"
+	 default="%FORMFIELD{"State" topic="%ITEM%" alttext="new"}%"
+	 type="select"
+	 options="new, inprogress, waiting, done"
+	 title="State"
+	 size="1"
+}% | %FORMELEMENT{
+	 name="Message"
+	 mandatory="on"
+	 format="<span class='formValue'>  $e $m $h </span>%BR%"
+	 default="%FORMFIELD{"Message" topic="%ITEM%" alttext=""}%"
+	 type="text"
+	 title="Message"
+	 size="70"
+}% %FORMERROR{"%TOPIC%%BASETOPIC%%CATEGORY%"}% | %FORMELEMENT{
+	 name="Date"
+	 mandatory="on"
+	 format="<span class='formValue'>  $e $m $h </span>"
+	 default="%FORMFIELD{"Date" topic="%ITEM%" alttext="%DISPLAYTIME{"$day $month $year"}%"}%"
+	 type="date"
+	 dateformat="%e %b %Y"
+	 title="Date"
+	 size="8"
+}% \
+%FORMELEMENT{type="hidden" name="Show" default="%FORMFIELD{"Show" topic="%ITEM%" alttext="show"}%"}% \
+%FORMELEMENT{type="hidden" name="Category" default="%FORMFIELD{"Category" topic="%ITEM%" alttext="%CATEGORY%"}%"}% \
+%FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"}% \
+%FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}% \
+%FORMELEMENT{type="hidden" name="%IF{"defined 'ITEM'" then="item" else="nothingtoseehere"}%" default="%ITEM%"}% \
+ | %FORMELEMENT{
+	 type="submit"
+	 buttonlabel="Submit"
+}% %IF{"defined 'ITEM'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""}% %ENDFORM% |%ENDSECTION{"edit_item"}%
+</verbatim>
+
+---+++ DataForm definition
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| Date      | date     | 16        |                | %DATE% | m  |
+| Message | text | 64 |  |  | m  |
+| State | select  | 1 | new, inprogress, waiting, done | | m |
+| Category | text | 64 | | ||
+
+
+---+++ Defaults for this topic only
+   * Set CATEGORY=*
