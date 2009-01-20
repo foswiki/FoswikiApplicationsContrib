@@ -32,7 +32,7 @@ to display News Items from _all_ categories:
 ---++ Application definition
 %STARTINCLUDE%
 <div class="foswikiRight">
-%CALC{"$SET(show_from_number, $MIN($TIMEADD($TIME($FORMATTIME($TIME(), $year-$month-1)),-1,month), $TIMEADD($TIME(%URLPARAM{showfrom}%), 3, month)))"}%
+%CALC{"$SET(show_from_number, $MIN($TIMEADD($TIME($FORMATTIME($TIME(), $year-$month-1)),-1,month), $TIMEADD($TIME($FORMATTIME($TIME(%URLPARAM{showfrom}%), $year-$month-15)), 3, month)))"}%
 [[%BASEWEB%.%BASETOPIC%][Latest News]] 
 [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($GET(show_from_number), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),1,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($GET(show_from_number), $day $mon $year)"}%]] 
 [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $year-$month-1)"}%;showto=%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),0,month), $year-$month-1)"}%][%CALC{"$FORMATTIME($TIMEADD($GET(show_from_number),-1,month), $day $mon $year)"}%]] 
