@@ -15,6 +15,9 @@ to display News Items from _all_ categories:
    * ?showfrom and ?showto - dates to filter output between
    * ?category - same as CATEGORY filter above
    * ?item=FoswikiApplicationData.NewsApplication123 - edit this item inline in the table.
+   
+---+++ <nop>NewsApplicationGroup
+If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only users that can add new news Items.
 
 ---++ Application definition
 %STARTINCLUDE%
@@ -61,7 +64,11 @@ to display News Items from _all_ categories:
 }%
 %INCLUDE{
 	"%WEB%.%TOPIC%"
-	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
+	section="%IF{"
+				    (defined 'item') OR
+				    (NOT 'FoswikiApplicationData.NoTopicWithThisName' allows 'CHANGE') OR
+				    ((istopic '%USERSWEB%.NewsApplicationGroup') AND (NOT '%WIKINAME%' ingroup 'NewsApplicationGroup'))
+			   " then="nothing" else="edit_item"}%"
 }%
 %STOPINCLUDE%
 
@@ -71,9 +78,20 @@ to display News Items from _all_ categories:
 %STARTSECTION{"view_item"}%| \
 	 %FORMFIELD{"Date" topic="%ITEM%"}% | \
 	 %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | \
-	  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%;showfrom=%URLPARAM{"showfrom" default=""}%;showto=%URLPARAM{"showto" default=""}%][%ICON{uweb-bo}%]]  |%ENDSECTION{"view_item"}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	 section="%IF{"
+				    '%ITEM%' allows 'CHANGE' AND
+    				    NOT ((istopic '%USERSWEB%.NewsApplicationGroup') AND (NOT '%WIKINAME%' ingroup 'NewsApplicationGroup'))
+			" then="edit_button" else="nothing"}%"
+	 warn="off"
+}% |%ENDSECTION{"view_item"}%
 </verbatim>
 
+---+++ edit_button 
+<verbatim>
+%STARTSECTION{"edit_button"}%[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%;showfrom=%URLPARAM{"showfrom" default=""}%;showto=%URLPARAM{"showto" default=""}%][%ICON{uweb-bo}%]] %ENDSECTION{"edit_button"}%
+</verbatim>
 ---+++ edit item format
 <verbatim>
 %STARTSECTION{"edit_item"}%| %STARTFORM{
