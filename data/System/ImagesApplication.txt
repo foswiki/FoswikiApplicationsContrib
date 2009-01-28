@@ -16,7 +16,7 @@ Images are selected from attachments uploaded to the topic you are displaying th
 
 ---++ Application definition
 %STARTINCLUDE%<style>
-.%TOPIC%%IMAGE% {
+.%TOPIC%%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}% {
 	 border:1px black solid;
 	 width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}%;
 	 height:%IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}%;
@@ -24,7 +24,7 @@ Images are selected from attachments uploaded to the topic you are displaying th
 	 overflow:hidden;
 	 %IF{"defined STYLE" then="%STYLE%" else=";"}%
 }
-</style><div class="%TOPIC%%IMAGE%" >
+</style><div class="%TOPIC%%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%" >
 %INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"
@@ -53,7 +53,6 @@ Images are selected from attachments uploaded to the topic you are displaying th
 %INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"'%META{ "attachments" template="ImagesApplicationList" }%' = ''" then="no_attachments" else="edit_item"}%"
-      IMAGE="%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%"
 }%
 %ENDSECTION{"edit_item_selector"}%
 ---+++ no_attachments 
