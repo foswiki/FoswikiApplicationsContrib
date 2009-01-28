@@ -1,1 +1,97 @@
-%META:TOPICINFO{author="SvenDowideit" date="1232071416" format="1.1" reprev="1.12" version="1.12"}%%META:TOPICPARENT{name="WebMenu"}%<div class="foswikiRight">[[%BASEWEB%.%BASETOPIC%][Latest News]] [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-12-1;showto=2009-1-1][Dec 2008]]  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-11-1;showto=2008-12-1][Nov 2008]]  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-10-1;showto=2008-11-1][Oct 2008]]  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-09-1;showto=2008-10-1][Aug 2008]]  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?showfrom=2008-08-1;showto=2008-09-1][Jul 2008]] </div>---+ Latest News%TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%%SEARCH{   "form.name~'%BASEWEB%.%BASETOPIC%' AND      fields[name='Show'].value = 'show' AND     ( ( '%LASTMONTHDATE%' = '' AND d2n(fields[name='Expiry'].value) >= d2n('%DATE%') ) OR      ('%LASTMONTHDATE%' != ''  AND d2n(fields[name='Date'].value) >= d2n('%SHOWFROM%') AND d2n(fields[name='Date'].value) < d2n('%SHOWTO%') ) )"   type="query"   nonoise="on"   order="formfield(Date)"   header="| *Date Posted* | *Message*  | ** |"   format="| $formfield(Date) | $formfield(Message) - $formfield(Link) | [[$web.$topic][$percntICON{uweb-bo}$percnt]]  |"}%---%TWISTY{mode="div"showlink="<b>Post a news Item</b>"hidelink="Hide&nbsp;"showimgright="%ICONURLPATH{toggleopen-small}%"hideimgright="%ICONURLPATH{toggleclose-small}%"}%%STARTFORM{name="newItem"action="save"topic="%WEB%.NewsItemAUTOINC0000"method="POST"redirectto="%BASEWEB%.%BASETOPIC%"}%<style>.formTitle { width:200px; }.formValue { position:absolute;left:200px; }#patternTopBar, #patternClearHeaderCenter, #patternClearHeaderLeft, #patternClearHeaderRight, #patternTopBarContentsOuter, #patternTopBarContents {height:130px;overflow:hidden;}</style>%FORMELEMENT{ 	 mandatory="on"        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"        default="%DISPLAYTIME{"$day $month $year"}%"type="date"name="Date"title="Date Posted"size="16"}%%FORMELEMENT{ 	 mandatory="on"        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"        default="%CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}%"type="date"name="Expiry"title="Expiry date"size="16"}%%FORMELEMENT{ 	 mandatory="on"        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"type="text"name="Message"title="Message"size="70"}%%FORMELEMENT{        format="<p><span class='formTitle'> $t </span><span class='formValue'>  $e $m $h </span></p>"type="text"name="Link"title="Link"size="70"}%%FORMELEMENT{type="hidden" name="Show" default="show"}%%FORMELEMENT{type="hidden" name="formtemplate" default="%BASEWEB%.%BASETOPIC%"}%%FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}%%FORMELEMENT{type="submit"buttonlabel="Post news item"}%%ENDFORM%%ENDTWISTY%<div style="width:902px;height:200px;"><div style="float:right;width:300px;height:200px;background: lightgreen;">graphic 2</div><div style="width:600px;height:200px;background: lightblue;">graphic 1</div></div>%TWISTY{mode="div"showlink="Item definition (will be hidden from users)"hidelink="Hide&nbsp;"showimgright="%ICONURLPATH{toggleopen-small}%"hideimgright="%ICONURLPATH{toggleclose-small}%"}%| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* || Date      | date     | 16        |                | %DATE% | m  || Message | text | 64 |  |  | m  || Link | text | 64 | | blah blah... |   || Show | checkbox | 1 | show | | || Expiry      | date     | 16        |                | %CALC{"$FORMATTIME($TIMEADD($TIME(), 1, month), $day $mon $year)"}% | m  |   * Set LASTMONTHDATE = %URLPARAM{"showfrom" default=""}%   * Set SHOWFROM = %URLPARAM{"showfrom" default=""}%   * Set SHOWTO = %URLPARAM{"showto" default=""}%%ENDTWISTY%---++ TODO's---++ News App   1 remove the actions top and bottom - most user's won't have access to any of them for this topic   1 the HomePage News should contain the top 2 items from each area, and its own news.   1 top history needs to be generated using calc - not as static last x months, but months before & after requested - unless its latest..   1 clicking button in list should really edit using the same form as create new   1 can we move the edit/create to be part of the table?---++ GraphicsApp   1 make the 2 graphics be selected from attachments attached to this topic   1 when no graphics are selected, the template should auto-adjust.   1 each of the 2 image things should be seperate instances of GraphicsApp, with params like name, size, change group, if in change group, there's a caption that allows them to select a different image from a list of attachments to this topic or to some common images topic. (some filtering for size?)---++ general   1 can i add a 'deploy App' to the app topic / side bar which then uses comment below / above some selected text in topic?%META:FILEATTACHMENT{name="Earth_Clouds.gif" attachment="Earth_Clouds.gif" attr="" comment="" date="1232070971" path="Earth (Clouds).gif" size="2760" stream="IO::File=GLOB(0x1690f00)" tmpFilename="/var/tmp/CGItemp24855" user="SvenDowideit" version="1"}%
+---++ %TOPIC% Usage
+To Add the todo application to any topic, you can use the following TML:
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%=
+or if you want to set limits explicitly
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" IMAGE="uniquename" WIDTH="300px" HEIGHT="200px" STYLE="border:none;}%=
+   
+If you have more than one Image in the same topic, unique within that topic.
+   
+Images are selected from attachments uploaded to the topic you are displaying them, and the comment field is used to tell the application which to show.
+
+
+
+---+++ urlparams
+   * ?item=imagename - select a different image
+
+---++ Application definition
+%STARTINCLUDE%<style>
+.%TOPIC%%IMAGE% {
+	 border:1px black solid;
+	 width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}%;
+	 height:%IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}%;
+	 background:url(%PUBURL%/%BASEWEB%/%BASETOPIC%/%META{ "attachments" template="ImagesApplicationItem" }%) white no-repeat;
+	 overflow:hidden;
+	 %IF{"defined STYLE" then="%STYLE%" else=";"}%
+}
+</style><div class="%TOPIC%%IMAGE%" >
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"
+			   defined 'item' AND 
+				    ($'item' ~ $'IMAGE' 
+					     OR 
+				    (NOT defined 'IMAGE')
+			   )" then="edit_item_selector" else="view_item"}%"
+      IMAGE="%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%"
+}%
+</div>%STOPINCLUDE%
+
+---
+---+++ view item format
+<verbatim>
+%STARTSECTION{"view_item"}%
+[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%IMAGE%][%ICON{uweb-bo}%]]  
+%IF{
+	 "'%META{ "attachments" template="ImagesApplicationItem" }%' =''" 
+	 then="no image selected" else="%META{ "attachments" template="ImagesApplicationItem" }%"
+}%%ENDSECTION{"view_item"}%
+</verbatim>
+---+++ edit_item_selector 
+<verbatim>
+%STARTSECTION{"edit_item_selector"}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"'%META{ "attachments" template="ImagesApplicationList" }%' = ''" then="no_attachments" else="edit_item"}%"
+      IMAGE="%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%"
+}%
+%ENDSECTION{"edit_item_selector"}%
+---+++ no_attachments 
+<verbatim>
+%STARTSECTION{"no_attachments"}%
+no attachments available %BR%
+<a class='foswikiButton foswikiButton' href='%SCRIPTURL{upload}%/%BASEWEB%/%BASETOPIC%'>Upload</a> 
+some attachments to this topic or  %BR%
+<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>
+%ENDSECTION{"no_attachments"}%
+
+---+++ edit item format
+<verbatim>
+%STARTSECTION{"edit_item"}%
+%STARTFORM{
+	 name="%TOPIC%%BASETOPIC%%IMAGE%"
+	 action="upload"
+	 topic="%BASEWEB%.%BASETOPIC%"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 showerrors="off"
+}% 
+%FORMELEMENT{
+	 name="filename"
+	 format="<span class='formImage'>  $e $m $h </span>%BR%"
+	 default="%META{ "attachments" template="ImagesApplicationItem" }%"
+	 type="select"
+	 options="%META{ "attachments" template="ImagesApplicationList" }%"
+	 title="%IMAGENAME%IMAGE%%"
+	 size="1"
+}% %FORMELEMENT{type="hidden" name="changeproperties" default="on"
+}% %FORMELEMENT{type="hidden" name="filecomment" default="%IMAGE%"
+}% %FORMELEMENT{type="hidden" name="%IF{"defined 'IMAGE'" then="item" else="nothingtoseehere"}%" default="%IMAGE%"
+}%  %FORMELEMENT{
+	 type="submit"
+	 buttonlabel="Submit"
+}% %IF{"defined 'IMAGE'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""
+}% %ENDFORM% %ENDSECTION{"edit_item"}%
+</verbatim>
+
