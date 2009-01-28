@@ -41,12 +41,8 @@ Images are selected from attachments uploaded to the topic you are displaying th
 ---+++ view item format
 <verbatim>
 %STARTSECTION{"view_item"}%
-[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%IMAGE%][%ICON{uweb-bo}%]]  
-%IF{
-	 "'%META{ "attachments" template="ImagesApplicationItem" }%' =''" 
-	 then="no image selected" else="%META{ "attachments" template="ImagesApplicationItem" }%"
-}%%ENDSECTION{"view_item"}%
-</verbatim>
+%INCLUDE{	"%WEB%.%TOPIC%"	 section="%IF{"'%BASEWEB%.%BASETOPIC%' allows 'CHANGE'" then="edit_button" else="nothing"}%"	 warn="off"}%%ENDSECTION{"view_item"}%
+</verbatim>---+++ edit_button <verbatim>%STARTSECTION{"edit_button"}% [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%IMAGE%][%ICON{uweb-bo}%]]%IF{	 "'%META{ "attachments" template="ImagesApplicationItem" }%' =''" 	 then="no image selected" else="%META{ "attachments" template="ImagesApplicationItem" }%"}%%ENDSECTION{"edit_button"}%</verbatim>
 ---+++ edit_item_selector 
 <verbatim>
 %STARTSECTION{"edit_item_selector"}%
