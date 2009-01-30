@@ -35,10 +35,6 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 <style>
 	 .formPluginTitle { width:200px; }
 	 .formValue { position:absolute;left:220px; }
-	 #patternTopBar, #patternClearHeaderCenter, #patternClearHeaderLeft, #patternClearHeaderRight, #patternTopBarContentsOuter, #patternTopBarContents {
-		  height:130px;
-		  overflow:hidden;
-	 }
 </style>
 
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
@@ -61,13 +57,14 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 			   ITEM=$quot$web.$topic$quot
 			   section=$quot$percntIF{$quot'$web.$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
 			   }$percnt"
-}%
+}% 
 %INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"
 				    (defined 'item') OR
+				    (NOT context authenticated) OR
 				    (NOT 'FoswikiApplicationData.NoTopicWithThisName' allows 'CHANGE') OR
-				    ((istopic '%USERSWEB%.NewsApplicationGroup') AND (NOT '%WIKINAME%' ingroup 'NewsApplicationGroup'))
+				    ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))
 			   " then="nothing" else="edit_item"}%"
 }%
 %STOPINCLUDE%
@@ -76,13 +73,14 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 ---+++ view item format
 <verbatim>
 %STARTSECTION{"view_item"}%| \
-	 %FORMFIELD{"Date" topic="%ITEM%"}% | \
-	 %FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | \
-%INCLUDE{
+	 %FORMFIELD{"Date" topic="%ITEM%"}% |\
+%FORMFIELD{"Message" topic="%ITEM%"}% %FORMFIELD{"Link" topic="%ITEM%"}% | \
+ %INCLUDE{
 	"%WEB%.%TOPIC%"
 	 section="%IF{"
 				    '%ITEM%' allows 'CHANGE' AND
-    				    NOT ((istopic '%USERSWEB%.NewsApplicationGroup') AND (NOT '%WIKINAME%' ingroup 'NewsApplicationGroup'))
+				    context authenticated AND
+    				    NOT ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))
 			" then="edit_button" else="nothing"}%"
 	 warn="off"
 }% |%ENDSECTION{"view_item"}%
