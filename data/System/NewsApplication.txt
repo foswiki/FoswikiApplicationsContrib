@@ -14,7 +14,7 @@ to display News Items from _all_ categories:
 ---+++ urlparams
    * ?showfrom and ?showto - dates to filter output between
    * ?category - same as CATEGORY filter above
-   * ?item=FoswikiApplicationData.NewsApplication123 - edit this item inline in the table.
+   * ?item=%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%.NewsApplication123 - edit this item inline in the table.
    
 ---+++ <nop>NewsApplicationGroup
 If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only users that can add new news Items.
@@ -39,7 +39,7 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
 %SEARCH{
-	 web="FoswikiApplicationData"
+	 web="%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%"
 	 topic="%TOPIC%*"
 	 "form.name~'%WEB%.%TOPIC%' AND 
 	 fields[name='Show'].value = 'show' AND
@@ -60,10 +60,11 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 }% 
 %INCLUDE{
 	"%WEB%.%TOPIC%"
+	warn="off"
 	section="%IF{"
 				    (defined 'item') OR
 				    (NOT context authenticated) OR
-				    (NOT 'FoswikiApplicationData.NoTopicWithThisName' allows 'CHANGE') OR
+				    (NOT '%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%.NoTopicWithThisName' allows 'CHANGE') OR
 				    ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))
 			   " then="nothing" else="edit_item"}%"
 }%
@@ -95,7 +96,7 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 %STARTSECTION{"edit_item"}%| %STARTFORM{
 	 name="%TOPIC%%BASETOPIC%%CATEGORY%"
 	 action="save"
-	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="FoswikiApplicationData.%TOPIC%AUTOINC0000"}%"
+	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%.%TOPIC%AUTOINC0000"}%"
 	 method="POST"
 	 redirectto="%BASEWEB%.%BASETOPIC%"
 	 sep=" "
@@ -146,6 +147,38 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 %IF{"defined 'ITEM'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""}% \
 %ENDFORM% |%ENDSECTION{"edit_item"}%
 
+</verbatim>
+
+---+++ widget-news
+Side bar widget for <nop>WidgetsSkin
+   * =EDIT="WEB.EditTopic"= - set to the topic that the users to to manipulate these news Items, defaults to the System web's NewsApplication (which will lose STOREIN and CATEGORY defaults)
+   * =LIMIT="2"= to show that number of the latest news.
+<verbatim>
+%STARTSECTION{"widget-news"}%<div class="widget-archives widget latnews">
+%IF{"
+	 (NOT context authenticated) OR
+	 (NOT '%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%.NoTopicWithThisName' allows 'CHANGE') OR
+	 ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))
+	" 
+	then="" 
+	else="<div class='newsApplicationEditLink'>[[%IF{"defined EDIT" then="%EDIT%" else="%WEB%.%TOPIC%"}%][edit]]</div>"
+}%   <h2 class="widget-header">Latest News</h2>
+   <div class="widget-content">
+%SEARCH{
+	 web="%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%"
+	 topic="%TOPIC%*"
+	 "form.name~'%WEB%.%TOPIC%' AND 
+	 fields[name='Show'].value = 'show' AND
+	 fields[name='Category'].value ~ '%URLPARAM{"category" default="%CATEGORY%"}%' AND
+	 ( d2n(fields[name='Expiry'].value) >= d2n('%DATE%') ) "
+	 type="query"
+	 nonoise="on"
+	 order="formfield(Date)"
+	 limit="%IF{"defined LIMIT" then="%LIMIT%" else="2"}%"
+	 format="<div class='widget-news-item'>$formfield(Message) ... <div class='readMore'>[[$web.$topic][read more]]</div></div>"
+}% 
+  </div>
+</div>%ENDSECTION{"widget-news"}%
 </verbatim>
 
 ---+++ DataForm definition
