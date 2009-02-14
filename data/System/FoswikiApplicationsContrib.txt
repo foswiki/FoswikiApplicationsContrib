@@ -13,6 +13,7 @@ Each of these applications can be added to any topic in your Wiki, _just_ by inc
 ---+++ NewsApplication
 ---+++ TodoApplication
 ---+++ ImagesApplication
+---+++ UserManagementApplication
 
 ---++ Implementation details
 All applications use %SYSTEMWEB%.FormsPlugin, and store their data in a hidden FoswikiApplicationData web.

@@ -6,6 +6,9 @@ lib/Foswiki/Contrib/FoswikiApplicationsContrib.pm 0644 Perl module
 data/System/NewsApplication.txt 0644 
 data/System/TodoApplication.txt 0644 
 
+data/System/UserManagementApplication.txt 0644 
+
+
 #ImagesApp
 data/System/ImagesApplication.txt 0644 
 templates/ImagesApplicationItem.tmpl

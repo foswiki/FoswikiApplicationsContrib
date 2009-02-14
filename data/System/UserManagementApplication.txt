@@ -1,0 +1,212 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1234588217" format="1.1" version="1.2"}%
+---++ %TOPIC% 
+
+This Mini-Foswiki Application can be used by the Wiki Admins to register new users, and in future to manage those users.
+
+%STARTINCLUDE%
+<style>
+	 .formPluginTitle { width:200px; }
+	 .NOTformValue { position:absolute;left:220px; }
+	 #patternTopBar, #patternClearHeaderCenter, #patternClearHeaderLeft, #patternClearHeaderRight, #patternTopBarContentsOuter, #patternTopBarContents {
+		  height:130px;
+		  overflow:hidden;
+	 }
+</style>
+<script language="javascript">
+<!--
+function capitalise(name)
+{
+var sIn = name;
+var sOut = '';
+var chgUpper = true;
+for ( var i = 0; i < sIn.length; i++ ) {
+ var ch = sIn.charAt( i );
+ var chVal = ch.charCodeAt(0);
+ var ch2 = '';
+ if( (chVal==192) || (chVal==193) || (chVal==194) || (chVal==195) ) { ch = 'A'; }
+ if( chVal==196) { ch = 'A'; ch2 = 'E'; }
+ if( chVal==197) { ch = 'A'; ch2 = 'A'; }
+ if( chVal==198) { ch = 'A'; ch2 = 'E'; }
+ if( chVal==199) { ch = 'C'; }
+ if( (chVal==200) || (chVal==201) || (chVal==202) || (chVal==203) ) { ch = 'E'; }
+ if( (chVal==204) || (chVal==205) || (chVal==206) || (chVal==207) ) { ch = 'I'; }
+ if( chVal==208) { ch = 'd'; }
+ if( chVal==209) { ch = 'N'; }
+ if( (chVal==210) || (chVal==211) || (chVal==212) || (chVal==213) ) { ch = 'O'; }
+ if( chVal==214) { ch = 'O'; ch2 = 'E'; }
+ if( chVal==216) { ch = 'O'; ch2 = 'E'; }
+ if( (chVal==217) || (chVal==218) || (chVal==219) ) { ch = 'U'; }
+ if( chVal==220) { ch = 'U'; ch2 = 'E'; }
+ if( chVal==221) { ch = 'Y'; }
+ if( chVal==222) { ch = 'P'; }
+ if( chVal==223) { ch = 's'; ch2 = 's'; }
+ if( (chVal==224) || (chVal==225) || (chVal==226) || (chVal==227) ) { ch = 'a'; }
+ if( chVal==228) { ch = 'a'; ch2 = 'e'; }
+ if( chVal==229) { ch = 'a'; ch2 = 'a'; }
+ if( chVal==230) { ch = 'a'; ch2 = 'e'; }
+ if( chVal==231) { ch = 'c'; }
+ if( (chVal==232) || (chVal==233) || (chVal==234) || (chVal==235) ) { ch = 'e'; }
+ if( (chVal==236) || (chVal==237) || (chVal==238) || (chVal==239) ) { ch = 'i'; }
+ if( chVal==240) { ch = 'd'; }
+ if( chVal==241) { ch = 'n'; }
+ if( (chVal==242) || (chVal==243) || (chVal==244) || (chVal==245) ) { ch = 'o'; }
+ if( chVal==246) { ch = 'o'; ch2 = 'e'; }
+ if( chVal==248) { ch = 'o'; ch2 = 'e'; }
+ if( (chVal==249) || (chVal==250) || (chVal==251) ) { ch = 'u'; }
+ if( chVal==252) { ch = 'u'; ch2 = 'e'; }
+ if( chVal==253) { ch = 'y'; }
+ if( chVal==254) { ch = 'p'; }
+ if( chVal==255) { ch = 'y'; }
+ if( ch!=' ' ) {
+  if( chgUpper ) {
+   ch = ch.toUpperCase(); chgUpper = false; 
+  } 
+  sOut+=ch;
+  if( ch2!='') {
+   sOut+=ch2; 
+  }
+ } else {
+  chgUpper = true; 
+ } 
+}
+return sOut;
+}
+//-->
+</script>
+%TABLE{tablewidth="99%"  }%
+%SEARCH{
+	 web="%USERSWEB%"
+	 "form.name~'*.UserForm'"
+	 type="query"
+	 nonoise="on"
+	 order="topic"
+	 header="| *User* | %IF{"$ ALLOWLOGINNAME" then="*login*  | "}%*emails* | *HomePage* |*groups* | ** |"
+	 format="$percntINCLUDE{
+			   $quot%WEB%.%TOPIC%$quot
+			   ITEM=$quot$topic$quot
+			   section=$quot$percntIF{$quot'$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
+			   }$percnt"
+}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"
+				    defined 'item' OR 
+				    NOT context authenticated OR
+				    NOT context registration_supported OR
+				    NOT context registration_enabled
+			   " 
+			   then="no_registration" 
+			   else="register_new"}%"
+	warn="off"
+}%
+%STOPINCLUDE%
+
+<!--
+---+++ view item format
+<verbatim>
+%STARTSECTION{"view_item"}%|\
+[[%USERSWEB%.%ITEM%][%ITEM%]]        |\
+%USERINFO{ "%ITEM%" format="%IF{"$ ALLOWLOGINNAME" then="=$username="}%" 
+}% %IF{"$ ALLOWLOGINNAME" then="|"}% %USERINFO{ 
+	"%ITEM%" format="$emails" 
+}% | %NOP%%FORMFIELD{
+	"HomePage" topic="%USERSWEB%.%ITEM%"
+}% | %USERINFO{ 
+	"%ITEM%" format="$groups " 
+}% | %ENDSECTION{"view_item"}%
+	  [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%ITEM%;state=%URLPARAM{"state" default="*"}%][%ICON{uweb-bo}%]]  |
+</verbatim>
+
+---+++ edit item format
+<verbatim>
+%STARTSECTION{"register_new"}%| <h3>register new user</h3> ||%IF{"$ ALLOWLOGINNAME" then="|"}%||
+| %STARTFORM{
+	 name="register%TOPIC%"
+	 action="%SCRIPTURLPATH{"register"}%/%BASEWEB%/%BASETOPIC%"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 showerrors="off"
+	 validate="on"
+}% %FORMELEMENT{
+	 name="Twk1FirstName"
+	 mandatory="on"
+	 format="<span class='formValue'>$t  $e </span>%BR%"
+	 default=""
+	 type="text"
+	 title="FirstName"
+	 size="16"
+	 onBlur ="this.form.Twk1WikiName.value=capitalise(this.value)+capitalise(this.form.Twk1LastName.value)"
+}% %FORMELEMENT{
+	 name="Twk1LastName"
+	 mandatory="on"
+	 format="<span class='formValue'>$t  $e </span>%BR%"
+	 default=""
+	 type="text"
+	 title="LastName"
+	 size="16"
+	 onBlur ="this.form.Twk1WikiName.value=capitalise(this.form.Twk1FirstName.value)+capitalise(this.value)"
+}% %FORMELEMENT{
+	 name="Twk1WikiName"
+	 mandatory="on"
+	 format="<span class='formValue'>$t  $e </span>%BR%"
+	 default=""
+	 type="text"
+	 title="WikiName"
+	 size="16"
+}% %IF{"$ ALLOWLOGINNAME" then="|"}% %FORMELEMENT{
+	 name="Twk1LoginName"
+	 mandatory="on"
+	 format="<span class='formValue'>$t  $e </span>"
+	 default=""
+	 type="%IF{"$ ALLOWLOGINNAME" then="text" else="hidden"}%"
+	 title="login"
+	 size="16"
+}% | %FORMELEMENT{
+	 name="Twk1Email"
+	 mandatory="on"
+	 format="<span class='formValue'>$t  $e </span>"
+	 default=""
+	 type="text"
+	 title="Email"
+	 size="20"
+}% %FORMERROR{"register%TOPIC%"
+}% | %FORMELEMENT{
+	 name="Twk0HomePage"
+	 mandatory="on"
+	 format="<span class='formValue'>$t  $e </span>"
+	 default=""
+	 type="select"
+	 options="%WEBLIST{"$name" separator=","}%"
+	 title="HomePage"
+	 size="1"
+}% | %FORMELEMENT{
+	 name="Twk0Group"
+	 NOTmandatory="on"
+	 format="<span class='formValue'>$t  $e </span>"
+	 default=""
+	 type="hidden"
+	 title="Group"
+	 size="20"
+}% %FORMELEMENT{type="hidden" name="action" default="register"
+}%  | %FORMELEMENT{
+	 type="submit"
+	 buttonlabel="Submit"
+}%  %ENDFORM% |%ENDSECTION{"register_new"}%
+</verbatim>
+
+---+++ no_registration
+<verbatim>
+%STARTSECTION{"no_registration"}%| <h3>%IF{
+					     "context authenticated" 
+					     then="No Registration" 
+					     else=""
+							       }%</h3> %IF{
+	"context registration_supported" 
+	 then="%IF{"context registration_enabled" then="" else="registration has been temporarily disabled - please contact %WIKIWEBMASTER%"}%"
+	 else="Registration has been disabled - Please ask %WIKIWEBMASTER% to check the logs."
+}% ||%IF{"$ ALLOWLOGINNAME" then="|"}%||%ENDSECTION{"no_registration"}%
+</verbatim>
+
+-->
+
