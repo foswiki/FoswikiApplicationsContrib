@@ -1,3 +1,4 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1234588217" format="1.1" version="1.2"}%
 ---++ %TOPIC% Usage
 To Add the todo application to any topic, you can use the following TML:
 
@@ -59,6 +60,7 @@ to display todo Items from _all_ categories:
 %INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
+	warn="off"
 }%
 %STOPINCLUDE%
 
@@ -118,6 +120,77 @@ to display todo Items from _all_ categories:
 }% %IF{"defined 'ITEM'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""}% %ENDFORM% |%ENDSECTION{"edit_item"}%
 </verbatim>
 
+---
+---+++ widget-todo
+Side bar widget for <nop>WidgetsSkin
+   * =EDIT="WEB.EditTopic"= - set to the topic that the users to to manipulate these news Items, defaults to the System web's ToDoApplication (which will lose STOREIN and CATEGORY defaults)
+   * =LIMIT="2"= to show that number of the latest news.
+<verbatim>
+%STARTSECTION{"widget-todo"}%<div class="widget-archives widget todo">
+%IF{"
+	 (NOT context authenticated) OR
+	 (NOT '%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%.NoTopicWithThisName' allows 'CHANGE') OR
+	 ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))
+	" 
+	then="" 
+	else="<div class='todoApplicationEditLink foswikiRight'>[[%IF{"defined EDIT" then="%EDIT%" else="%WEB%.%TOPIC%"}%][manage]]</div>"
+}%   <h2 class="widget-header">Todo's</h2>
+   <div class="widget-content">
+<style>
+.widget-todo-item .formInputField {
+	width: 89%;
+} 
+</style>
+%SEARCH{
+	 web="%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%"
+	 topic="%TOPIC%*"
+	 "form.name~'%WEB%.%TOPIC%' AND 
+	 fields[name='Category'].value ~ '%URLPARAM{"category" default="%CATEGORY%"}%' AND
+	 fields[name='State'].value ~ '%URLPARAM{"state" default="*"}%'
+	 "
+	 type="query"
+	 nonoise="on"
+	 order="formfield(Date)"
+	 limit="%IF{"defined LIMIT" then="%LIMIT%" else="2"}%"
+	 VIEWformat="<div class='widget-todo-item'>$formfield(Message) ... <span class='readMore'>[[$web.$topic][edit]]</span></div>"
+	 format="<div class='widget-todo-item' >$percntINCLUDE{$quot%WEB%.%TOPIC%$quot section=$quotwidget_add_item$quot ITEM=$quot$web.$topic$quot}$percnt</div>"
+}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"defined 'item'" then="nothing" else="widget_add_item"}%"
+	warn="off"
+}%
+  </div>
+</div>%ENDSECTION{"widget-todo"}%
+</verbatim>
+
+---+++ widget_add_item format
+<verbatim>
+%STARTSECTION{"widget_add_item"}% %STARTFORM{
+	 name="%TOPIC%%BASETOPIC%%CATEGORY%%ITEM%"
+	 action="save"
+	 topic="%IF{"defined 'ITEM'" then="%ITEM%" else="FoswikiApplicationData.%TOPIC%AUTOINC0000"}%"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 showerrors="off"
+}%  %FORMELEMENT{
+	 name="Message"
+	 mandatory="on"
+	 format="<span class='formValue %FORMFIELD{"State" topic="%ITEM%" alttext="new"}%State'>$e</span>"
+	 default="%FORMFIELD{"Message" topic="%ITEM%" alttext=""}%"
+	 type="text"
+	 title="Message"
+	 size="30"
+}% %FORMELEMENT{type="hidden" name="State" default="%FORMFIELD{"State" topic="%ITEM%" alttext="new"}%"
+}% %FORMELEMENT{type="hidden" name="Date" default="%FORMFIELD{"Date" topic="%ITEM%" alttext="%DISPLAYTIME{"$day $month $year"}%"}%"
+}% %FORMELEMENT{type="hidden" name="Category" default="%FORMFIELD{"Category" topic="%ITEM%" alttext="%CATEGORY%"}%"
+}% %FORMELEMENT{type="hidden" name="formtemplate" default="%WEB%.%TOPIC%"
+}% %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"
+}% %FORMELEMENT{type="hidden" name="%IF{"defined 'ITEM'" then="item" else="nothingtoseehere"}%" default="%ITEM%"
+}% %ENDFORM% %ENDSECTION{"widget_add_item"}%
+</verbatim>
+---
 ---+++ DataForm definition
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Date      | date     | 16        |                | %DATE% | m  |
