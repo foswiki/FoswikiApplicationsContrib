@@ -1,1 +1,126 @@
----++ %TOPIC% UsageTo Add the todo application to any topic, you can use the following TML:   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%=or if you want to set limits explicitly   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" IMAGE="uniquename" WIDTH="300px" HEIGHT="200px" STYLE="border:none;}%=   If you have more than one Image in the same topic, unique within that topic.   Images are selected from attachments uploaded to the topic you are displaying them, and the comment field is used to tell the application which to show.---+++ urlparams   * ?item=imagename - select a different image---++ Application definition%STARTINCLUDE%%INCLUDE{	"%WEB%.%TOPIC%"	section="%IF{"			   ('%META{ "attachments" template="ImagesApplicationItem" }%' ='') AND NOT			   ('%BASEWEB%.%BASETOPIC%' allows 'CHANGE' AND				    context authenticated AND    				    NOT ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group')))		  " 		  then="no image selected" 		  else="image"	 }%"}%%STOPINCLUDE%%STARTSECTION{"image"}%<style>.%TOPIC%%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}% {	 border:1px black solid;	 width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}%;	 height:%IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}%;	 background:url(%PUBURL%/%BASEWEB%/%BASETOPIC%/%META{ "attachments" template="ImagesApplicationItem" }%) white no-repeat;	 overflow:hidden;	 %IF{"defined STYLE" then="%STYLE%" else=";"}%}</style><div class="%TOPIC%%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%" >%INCLUDE{	"%WEB%.%TOPIC%"	section="%IF{"			   defined 'item' AND 				    ($'item' ~ $'IMAGE' 					     OR 				    (NOT defined 'IMAGE')			   )" then="edit_item_selector" else="view_item"}%"      IMAGE="%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%"}%</div>%ENDSECTION{"image"}%------+++ view item format<verbatim>%STARTSECTION{"view_item"}%%INCLUDE{	"%WEB%.%TOPIC%"	 section="%IF{"				    '%BASEWEB%.%BASETOPIC%' allows 'CHANGE' AND 				    context authenticated  AND    				    NOT ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))			   " then="edit_button" else="nothing"}%"	 warn="off"}%%ENDSECTION{"view_item"}%</verbatim>---+++ edit_button <verbatim>%STARTSECTION{"edit_button"}% [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%IMAGE%][%ICON{uweb-bo}%]]%IF{	 "'%META{ "attachments" template="ImagesApplicationItem" }%' =''" 	 then="no image selected" else="%META{ "attachments" template="ImagesApplicationItem" }%"}%%ENDSECTION{"edit_button"}%</verbatim>---+++ edit_item_selector <verbatim>%STARTSECTION{"edit_item_selector"}%%INCLUDE{	"%WEB%.%TOPIC%"	section="%IF{"'%META{ "attachments" template="ImagesApplicationList" }%' = ''" then="no_attachments" else="edit_item"}%"}%%ENDSECTION{"edit_item_selector"}%---+++ no_attachments <verbatim>%STARTSECTION{"no_attachments"}%no attachments available %BR%<a class='foswikiButton foswikiButton' href='%SCRIPTURL{attach}%/%BASEWEB%/%BASETOPIC%'>Upload</a> some attachments to this topic or  %BR%<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>%ENDSECTION{"no_attachments"}%---+++ edit item format<verbatim>%STARTSECTION{"edit_item"}%%STARTFORM{	 name="%TOPIC%%BASETOPIC%%IMAGE%"	 action="upload"	 topic="%BASEWEB%.%BASETOPIC%"	 method="POST"	 redirectto="%BASEWEB%.%BASETOPIC%"	 sep=" "	 showerrors="off"}% %FORMELEMENT{	 name="filename"	 format="<span class='formImage'>  $e $m $h </span>%BR%"	 default="%META{ "attachments" template="ImagesApplicationItem" }%"	 type="select"	 options="%META{ "attachments" template="ImagesApplicationList" }%"	 title="%IMAGENAME%IMAGE%%"	 size="1"}% %FORMELEMENT{type="hidden" name="changeproperties" default="on"}% %FORMELEMENT{type="hidden" name="filecomment" default="%IMAGE%"}% %FORMELEMENT{type="hidden" name="%IF{"defined 'IMAGE'" then="item" else="nothingtoseehere"}%" default="%IMAGE%"}%  %FORMELEMENT{	 type="submit"	 buttonlabel="Submit"}% %IF{"defined 'IMAGE'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""}% %ENDFORM% %ENDSECTION{"edit_item"}%</verbatim>
+---++ %TOPIC% Usage
+To Add the todo application to any topic, you can use the following TML:
+
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%=
+or if you want to set limits explicitly
+   * =%<nop>INCLUDE{"%SYSTEMWEB%.%TOPIC%" IMAGE="uniquename" WIDTH="300px" HEIGHT="200px" STYLE="border:none;}%=
+   
+If you have more than one Image in the same topic, unique within that topic.
+   
+Images are selected from attachments uploaded to the topic you are displaying them, and the comment field is used to tell the application which to show.
+
+
+
+---+++ urlparams
+   * ?item=imagename - select a different image
+
+---++ Application definition
+%STARTINCLUDE%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"
+			   ('%META{ "attachments" template="ImagesApplicationItem" }%' ='') AND NOT
+			   ('%BASEWEB%.%BASETOPIC%' allows 'CHANGE' AND
+				    context authenticated AND
+    				    NOT ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group')))
+		  " 
+		  then="no image selected" 
+		  else="image"
+	 }%"
+	 IMAGE="%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%"
+}%
+%STOPINCLUDE%
+
+
+%STARTSECTION{"image"}%<style>
+.%TOPIC%%IMAGE% {
+	 border: %IF{"'%META{ "attachments" template="ImagesApplicationItem" }%' =''" then="1px black solid" else="none"}%;
+	 width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}%;
+	 height:%IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}%;
+	 background:url(%PUBURL%/%BASEWEB%/%BASETOPIC%/%META{ "attachments" template="ImagesApplicationItem" }%) white no-repeat;
+	 overflow:hidden;
+	 %IF{"defined STYLE" then="%STYLE%" else=";"}%
+}
+</style><div class="%TOPIC%%IMAGE%" >
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"
+			   defined 'item' AND 
+				    ($'item' ~ $'IMAGE' 
+					     OR 
+				    (NOT defined 'IMAGE')
+			   )" then="edit_item_selector" else="view_item"}%"
+      IMAGE="%IMAGE%"
+}%
+</div>%ENDSECTION{"image"}%
+
+---
+---+++ view item format
+<verbatim>
+%STARTSECTION{"view_item"}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	 section="%IF{"
+				    '%BASEWEB%.%BASETOPIC%' allows 'CHANGE' AND 
+				    context authenticated  AND
+    				    NOT ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group'))
+			   " then="edit_button" else="nothing"}%"
+	 warn="off"
+}%%ENDSECTION{"view_item"}%
+</verbatim>
+---+++ edit_button 
+<verbatim>
+%STARTSECTION{"edit_button"}% [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%IMAGE%][%ICON{uweb-bo}%]]
+ %BR% Width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}% x  Height: %IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}% %BR%
+%IF{
+	 "'%META{ "attachments" template="ImagesApplicationItem" }%' =''" 
+	 then="no image selected" else="%META{ "attachments" template="ImagesApplicationItem" }%"
+}%%ENDSECTION{"edit_button"}%
+</verbatim>
+---+++ edit_item_selector 
+<verbatim>
+%STARTSECTION{"edit_item_selector"}%
+%INCLUDE{
+	"%WEB%.%TOPIC%"
+	section="%IF{"'%META{ "attachments" template="ImagesApplicationList" }%' = ''" then="no_attachments" else="edit_item"}%"
+}%
+%ENDSECTION{"edit_item_selector"}%
+---+++ no_attachments 
+<verbatim>
+%STARTSECTION{"no_attachments"}%
+no attachments available %BR%
+<a class='foswikiButton foswikiButton' href='%SCRIPTURL{attach}%/%BASEWEB%/%BASETOPIC%'>Upload</a> 
+some attachments to this topic or  %BR%
+<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>
+%ENDSECTION{"no_attachments"}%
+
+---+++ edit item format
+<verbatim>
+%STARTSECTION{"edit_item"}%
+%STARTFORM{
+	 name="%TOPIC%%BASETOPIC%%IMAGE%"
+	 action="upload"
+	 topic="%BASEWEB%.%BASETOPIC%"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 showerrors="off"
+}% 
+%FORMELEMENT{
+	 name="filename"
+	 format="<span class='formImage'>  $e $m $h </span>%BR%"
+	 default="%META{ "attachments" template="ImagesApplicationItem" }%"
+	 type="select"
+	 options="%META{ "attachments" template="ImagesApplicationList" }%"
+	 title="%IMAGENAME%IMAGE%%"
+	 size="1"
+}% %FORMELEMENT{type="hidden" name="changeproperties" default="on"
+}% %FORMELEMENT{type="hidden" name="filecomment" default="%IMAGE%"
+}% %FORMELEMENT{type="hidden" name="%IF{"defined 'IMAGE'" then="item" else="nothingtoseehere"}%" default="%IMAGE%"
+}%  %FORMELEMENT{
+	 type="submit"
+	 buttonlabel="Submit"
+}% %IF{"defined 'IMAGE'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""
+}% %ENDFORM% %ENDSECTION{"edit_item"}%
+</verbatim>
+
