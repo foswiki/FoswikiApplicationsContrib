@@ -106,10 +106,10 @@ return sOut;
 <verbatim>
 %STARTSECTION{"view_item"}%|\
 [[%USERSWEB%.%ITEM%][%ITEM%]]        |\
-%USERINFO{ "%ITEM%" format="%IF{"$ ALLOWLOGINNAME" then="=$username="}%" 
+%USERINFO{ "%ITEM%" format="%IF{"$ ALLOWLOGINNAME" then=" =$username=" else=" "}%" 
 }% %IF{"$ ALLOWLOGINNAME" then="|"}% %USERINFO{ 
 	"%ITEM%" format="$emails" 
-}% | %NOP%%FORMFIELD{
+}%   | %NOP%%FORMFIELD{
 	"HomePage" topic="%USERSWEB%.%ITEM%"
 }% | %USERINFO{ 
 	"%ITEM%" format="$groups " 
@@ -155,8 +155,8 @@ return sOut;
 	 title="WikiName"
 	 size="16"
 }% %IF{"$ ALLOWLOGINNAME" then="|"}% %FORMELEMENT{
-	 name="Twk1LoginName"
-	 mandatory="on"
+	 name="%IF{"$ ALLOWLOGINNAME" then="Twk1LoginName" else="hiddenLoginName"}%"
+	 %IF{"$ ALLOWLOGINNAME" then="" else="hidden"}%mandatory="on"
 	 format="<span class='formValue'>$t  $e </span>"
 	 default=""
 	 type="%IF{"$ ALLOWLOGINNAME" then="text" else="hidden"}%"
