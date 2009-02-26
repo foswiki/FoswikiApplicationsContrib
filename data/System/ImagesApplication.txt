@@ -19,7 +19,7 @@ Images are selected from attachments uploaded to the topic you are displaying th
 %INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"
-			   ('%META{ "attachments" template="ImagesApplicationItem" }%' ='') AND NOT
+			   ('%%CALC{"$UPPER(%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%)"}%%' ='') AND NOT
 			   ('%BASEWEB%.%BASETOPIC%' allows 'CHANGE' AND
 				    context authenticated AND
     				    NOT ((istopic '%USERSWEB%.%TOPIC%Group') AND (NOT '%WIKINAME%' ingroup '%TOPIC%Group')))
@@ -27,17 +27,17 @@ Images are selected from attachments uploaded to the topic you are displaying th
 		  then="no image selected" 
 		  else="image"
 	 }%"
-	 IMAGE="%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%"
+	 IMAGE="%CALC{"$UPPER(%IF{"defined 'IMAGE'" then="%IMAGE%" else="singleimage"}%)"}%"
 }%
 %STOPINCLUDE%
 
 
 %STARTSECTION{"image"}%<style>
 .%TOPIC%%IMAGE% {
-	 border: %IF{"'%META{ "attachments" template="ImagesApplicationItem" }%' =''" then="1px black solid" else="none"}%;
+	 border: %IF{"'%%IMAGE%%' =''" then="1px black solid" else="none"}%;
 	 width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}%;
 	 height:%IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}%;
-	 background:url(%PUBURL%/%BASEWEB%/%BASETOPIC%/%META{ "attachments" template="ImagesApplicationItem" }%) white no-repeat;
+	 background:url(%PUBURL%/%BASEWEB%/%BASETOPIC%/%%IMAGE%%) white no-repeat;
 	 overflow:hidden;
 	 %IF{"defined STYLE" then="%STYLE%" else=";"}%
 }
@@ -73,8 +73,8 @@ Images are selected from attachments uploaded to the topic you are displaying th
 %STARTSECTION{"edit_button"}% [[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?item=%IMAGE%][%ICON{uweb-bo}%]]
  %BR% Width: %IF{"defined WIDTH" then="%WIDTH%" else="300px"}% x  Height: %IF{"defined HEIGHT" then="%HEIGHT%" else="200px"}% %BR%
 %IF{
-	 "'%META{ "attachments" template="ImagesApplicationItem" }%' =''" 
-	 then="no image selected" else="%META{ "attachments" template="ImagesApplicationItem" }%"
+	 "'%%IMAGE%%' =''" 
+	 then="no image selected" else="%%IMAGE%%"
 }%%ENDSECTION{"edit_button"}%
 </verbatim>
 ---+++ edit_item_selector 
@@ -99,7 +99,7 @@ some attachments to this topic or  %BR%
 %STARTSECTION{"edit_item"}%
 %STARTFORM{
 	 name="%TOPIC%%BASETOPIC%%IMAGE%"
-	 action="upload"
+	 action="save"
 	 topic="%BASEWEB%.%BASETOPIC%"
 	 method="POST"
 	 redirectto="%BASEWEB%.%BASETOPIC%"
@@ -107,20 +107,37 @@ some attachments to this topic or  %BR%
 	 showerrors="off"
 }% 
 %FORMELEMENT{
-	 name="filename"
+	 name="Set %IMAGE%"
 	 format="<span class='formImage'>  $e $m $h </span>%BR%"
-	 default="%META{ "attachments" template="ImagesApplicationItem" }%"
+	 default="%%IMAGE%%"
 	 type="select"
 	 options="%META{ "attachments" template="ImagesApplicationList" }%"
 	 title="%IMAGENAME%IMAGE%%"
 	 size="1"
-}% %FORMELEMENT{type="hidden" name="changeproperties" default="on"
-}% %FORMELEMENT{type="hidden" name="filecomment" default="%IMAGE%"
 }% %FORMELEMENT{type="hidden" name="%IF{"defined 'IMAGE'" then="item" else="nothingtoseehere"}%" default="%IMAGE%"
 }%  %FORMELEMENT{
 	 type="submit"
 	 buttonlabel="Submit"
 }% %IF{"defined 'IMAGE'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""
+}% %ENDFORM% %STARTFORM{
+	 name="%TOPIC%%BASETOPIC%%IMAGE%_remove"
+	 action="save"
+	 topic="%BASEWEB%.%BASETOPIC%"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 showerrors="off"
+}% 
+%FORMELEMENT{
+	 name="UnSet %IMAGE%"
+	 default="%%IMAGE%%"
+	 type="hidden"
+	 title="%IMAGENAME%IMAGE%%"
+	 size="1"
+}% %FORMELEMENT{type="hidden" name="%IF{"defined 'IMAGE'" then="item" else="nothingtoseehere"}%" default="%IMAGE%"
+}%  %FORMELEMENT{
+	 type="submit"
+	 buttonlabel="remove Image"
 }% %ENDFORM% %ENDSECTION{"edit_item"}%
 </verbatim>
 
