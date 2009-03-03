@@ -50,6 +50,20 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 PAGER FROM NewsApplication
 </div>
 <style>
+.testcalendar {border-collapse:collapse;width:700px;}
+.testcalendar td { background-color: transparent } 
+.testcalendar td th, 
+</sticky><sticky>.testcalendar td td { background-color: transparent; float: left; padding:2px; margin: 0; width: 13%; overflow: hidden; font-weight: normal; }  
+</sticky><sticky>.testcalendar .weekend, .testcalendar .weekday {padding-right: 3px; text-align: center; }
+.testcalendar .day {border:1px solid darkgray; border-collapse:collapse;} 
+.testcalendar .calendarHeader { width: auto; align:center; } 
+.testcalendar .day { background:transparent; text-align: left; vertical-align:top; height: 7em; overflow: hidden; } 
+.testcalendar .Sat, .testcalendar .Sun { background:transparent; } </sticky><sticky>.testcalendar .today { background:#F0F0F0; color:#07A6DA; font-weight:normal; } 
+.testcalendar .today .calendarDay:before { NOcontent: 'today  ';}
+.testcalendar .calendarDate {padding-bottom: 2px;}
+.testcalendar .calendarDay {color:darkgray; font-size:1em; padding:0; text-align:right;}
+.testcalendar .today .calendarDay {color: black;}
+.testcalendar .calenderDescription {font-size: x-small;padding-left: 3px;color: saddleBrown;}
 .simpleCalendarCss {
 width: 64em;
 }
