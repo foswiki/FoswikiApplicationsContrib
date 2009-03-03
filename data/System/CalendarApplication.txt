@@ -82,7 +82,7 @@ width: 6em;
 width: auto;
 }
 .simpleCalendarCss .day {
-background:transparent url(http://www.csskarma.com/lab/calendar/styled/images/day-bg.png) no-repeat scroll bottom right;
+background:transparent url(%ATTACHURL%/day-bg.png) no-repeat scroll bottom right;
 text-align: left;
 vertical-align:top;
 height: 6em;
@@ -92,7 +92,7 @@ overflow: hidden;
 font-size: x-small;
 }
 .simpleCalendarCss .today {
-background:transparent url(http://www.csskarma.com/lab/calendar/styled/images/day-bg.png) no-repeat scroll top center;
+background:transparent url(%ATTACHURL%/day-bg.png) no-repeat scroll top center;
 }
 .bottomCalendar {
 width: 650px;

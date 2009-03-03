@@ -7,6 +7,7 @@ data/System/NewsApplication.txt 0644
 data/System/TodoApplication.txt 0644 
 data/System/CalendarApplication.txt 0644 
 pub/System/CalendarApplication/calandericons.png
+pub/System/CalendarApplication/day-bg.png
 
 data/System/UserManagementApplication.txt 0644 
 
