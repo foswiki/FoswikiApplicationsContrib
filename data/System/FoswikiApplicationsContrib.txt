@@ -31,6 +31,7 @@ As the form definition is stored in the application topic, all data topics will 
 |  Copyright: | &copy; SvenDowideit@fosiki.com |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License v3)]] |
 |  Version: | %$VERSION% |
+|  Feb 2009 | initial releases |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/FoswikiApplicationsContrib |
