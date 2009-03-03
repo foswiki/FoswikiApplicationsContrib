@@ -39,8 +39,9 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 		  SUMMARYFIELD="Message"
 		  DATEWEB="FoswikiApplicationData"
 		  TOPICS="TodoApplication*"
-		  CALENDAROPTIONS="showweekdayheaders=\"1\" cellclass=\"day $wday $day $month $year\""
-}% %STOPINCLUDE%
+		  CALENDAROPTIONS="topic=\"%SYSTEMWEB%.%TOPIC%\" showweekdayheaders=\"1\" cellclass=\"day $wday $day $month $year\" tableclass=\"%URLPARAM{"calcss" default="simpleCalendarCss"}%\" datenumberformat=\"<div class='calendarDate'><div class='calendarDay'>$day</div><div class='calenderDescription'></div></div>\" format=\"<div class='calendarDate'><div class='calendarDay'>$day</div><div class='calenderDescription'>$description</div></div>\""
+}% 
+%STOPINCLUDE%
 
 ---+++ Application definition
 <verbatim>
@@ -49,29 +50,101 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 PAGER FROM NewsApplication
 </div>
 <style>
-.calendar {
+.simpleCalendarCss {
 width: 64em;
 }
-.calendar td {
+.simpleCalendarCss td {
 background-color: transparent
 }
-.calendar td td,
-.calendar td th {
+.simpleCalendarCss td td,
+.simpleCalendarCss td th {
 background-color: transparent;
 float: left;
 padding:2px;
 margin: 2px;
-width: 8em;
+width: 6em;
 }
-.calendar .calendarHeader {
+.simpleCalendarCss .calendarHeader {
 width: auto;
 }
-.calendar .day {
+.simpleCalendarCss .day {
 background:transparent url(http://www.csskarma.com/lab/calendar/styled/images/day-bg.png) no-repeat scroll bottom right;
 text-align: left;
 vertical-align:top;
-height: 8em;
+height: 6em;
 overflow: hidden;
+}
+.simpleCalendarCss .calenderDescription {
+font-size: x-small;
+}
+.simpleCalendarCss .today {
+background:transparent url(http://www.csskarma.com/lab/calendar/styled/images/day-bg.png) no-repeat scroll top center;
+}
+.bottomCalendar {
+width: 650px;
+clear: both;
+}
+.bottomCalendar td {
+background-color: transparent
+}
+.bottomCalendar td td,
+.bottomCalendar td th {
+background-color: transparent;
+float: left;
+padding:0;
+margin: 0;
+width: 100px;
+}
+.bottomCalendar .weekday,
+.bottomCalendar .weekend {
+margin-right: -13px;
+margin-left: 5px;
+margin-bottom: 3px;
+}
+.bottomCalendar .calendarHeader {
+width: auto;
+float:right;
+}
+.bottomCalendar .day {
+background:transparent url(%ATTACHURL%/calandericons.png) no-repeat scroll top left;
+text-align: left;
+vertical-align:top;
+height: 100px;
+overflow: hidden;
+margin: -4px;
+}
+.bottomCalendar .Sat,
+.bottomCalendar .Sun {
+background:transparent url(%ATTACHURL%/calandericons.png) no-repeat scroll 0 -100px;
+}
+.bottomCalendar .today {
+background:transparent url(%ATTACHURL%/calandericons.png) no-repeat scroll -100px -100px;
+color:darkred;
+font-weight:bold;
+}
+.bottomCalendar .today .calenderDescription:after {
+content: 'today';
+}
+.bottomCalendar .Sat .today,
+.bottomCalendar .Sun .today {
+background:transparent url(%ATTACHURL%/calandericons.png) no-repeat scroll -100px 0;
+}
+.bottomCalendar .calendarDate {
+padding: 10px;
+}
+.bottomCalendar .calendarDay {
+color:darkred;
+font-size:large;
+padding:2px;
+padding-bottom: 10px;
+}
+.bottomCalendar .today .calendarDay {
+color: black;
+}
+.bottomCalendar .calenderDescription {
+font-size: x-small;
+padding-left: 3px;
+color: saddleBrown;
 }
 </style>
 %CALENDAR{%CALENDAROPTIONS%}%
@@ -82,7 +155,7 @@ overflow: hidden;
 	 topic="%TOPICS%"
 	 "%FILTER%"
 	 type="query"
-	 nonoise="on"
+	 Nnonoise="on"
 	 order="formfield(%DATEFIELD%)"
 	 format="   * $formfield(%DATEFIELD%) - $formfield(%SUMMARYFIELD%)"
 }%
