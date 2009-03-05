@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1234588217" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="SvenDowideit" date="1236214174" format="1.1" reprev="1.2" version="1.2"}%
 ---++ %TOPIC% Usage
 To Add the calendar application to any topic, you can use the following TML:
 
@@ -44,6 +44,7 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 %STOPINCLUDE%
 
 ---+++ Application definition
+<sticky>
 <verbatim>
 %STARTSECTION{calendar}%
 <div class="foswikiRight">
@@ -53,17 +54,33 @@ PAGER FROM NewsApplication
 .testcalendar {border-collapse:collapse;width:700px;}
 .testcalendar td { background-color: transparent } 
 .testcalendar td th, 
-</sticky><sticky>.testcalendar td td { background-color: transparent; float: left; padding:2px; margin: 0; width: 13%; overflow: hidden; font-weight: normal; }  
-</sticky><sticky>.testcalendar .weekend, .testcalendar .weekday {padding-right: 3px; text-align: center; }
+.testcalendar td td { background-color: transparent; float: left; padding:2px; margin: 0; width: 13%; overflow: hidden; font-weight: normal; }  
+.testcalendar .weekend, .testcalendar .weekday {padding-right: 3px; text-align: center; }
 .testcalendar .day {border:1px solid darkgray; border-collapse:collapse;} 
 .testcalendar .calendarHeader { width: auto; align:center; } 
 .testcalendar .day { background:transparent; text-align: left; vertical-align:top; height: 7em; overflow: hidden; } 
-.testcalendar .Sat, .testcalendar .Sun { background:transparent; } </sticky><sticky>.testcalendar .today { background:#F0F0F0; color:#07A6DA; font-weight:normal; } 
+.testcalendar .Sat, .testcalendar .Sun { background:transparent; } 
+.testcalendar .today { background:#F0F0F0; color:#07A6DA; font-weight:normal; } 
 .testcalendar .today .calendarDay:before { NOcontent: 'today  ';}
 .testcalendar .calendarDate {padding-bottom: 2px;}
 .testcalendar .calendarDay {color:darkgray; font-size:1em; padding:0; text-align:right;}
 .testcalendar .today .calendarDay {color: black;}
 .testcalendar .calenderDescription {font-size: x-small;padding-left: 3px;color: saddleBrown;}
+.smallcalendar {border-collapse:collapse;width:auto;}
+.smallcalendar td { background-color: transparent } 
+.smallcalendar td th, 
+.smallcalendar td td { background-color: transparent; float: left; padding:2px; margin: 0; width: 20px; overflow: hidden; font-weight: normal; }  
+.smallcalendar .weekend, .smallcalendar .weekday {padding-right: 4px; text-align: center; }
+.smallcalendar .day {border:1px solid darkgray; border-collapse:collapse;} 
+.smallcalendar .calendarHeader { width: auto; align:center; } 
+.smallcalendar .day { background:transparent; text-align: left; vertical-align:top; height: 20px; overflow: hidden; } 
+.smallcalendar .Sat, .testcalendar .Sun { background:transparent; } 
+.smallcalendar .today { background:#F0F0F0; color:#07A6DA; font-weight:normal; } 
+.smallcalendar .today .calendarDay:before { NOcontent: 'today  ';}
+.smallcalendar .calendarDate {padding-bottom: 2px;}
+.smallcalendar .calendarDay {color:darkgray; font-size:1em; padding:0; text-align:right;}
+.smallcalendar .today .calendarDay {color: black;}
+.smallcalendar .calenderDescription {display:none;font-size: x-small;padding-left: 3px;color: saddleBrown;}
 .simpleCalendarCss {
 width: 64em;
 }
@@ -176,6 +193,7 @@ color: saddleBrown;
 -->
 %ENDSECTION{"calendar"}%
 </verbatim>
+</sticky>
 
 
 ---
