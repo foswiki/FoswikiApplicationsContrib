@@ -48,8 +48,8 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 		  SUMMARYFIELD="Message"
 		  DATEWEB="FoswikiApplicationData"
 		  TOPICS="*"
-		  CALENDAROPTIONS="topic=\"%SYSTEMWEB%.%TOPIC%\" showweekdayheaders=\"1\" cellclass=\"day $wday $day $month $year\" tableclass=\"%URLPARAM{"calcss" default="simpleCalendarCss"}%\" aslist=\"%URLPARAM{"aslist" default="0"}%\" datenumberformat=\"<div class='calendarDay'>$day</div>\" format=\"<div class='calendarDate'>$old<div class='calenderDescription'>$description</div></div>\""
-}% 
+		  CALENDAROPTIONS="topic=\"%SYSTEMWEB%.%TOPIC%\" showweekdayheaders=\"1\" cellclass=\"day $wday $day $month $year\" tableclass=\"%URLPARAM{"calcss" default="simpleCalendarCss"}%\" aslist=\"%URLPARAM{"aslist" default="0"}%\" datenumberformat=\"<div class='calendarDay'>$day</div>\" format=\"$old<div class='calenderDescription'>$description</div>\""
+}%
 %STOPINCLUDE%
 
 ---+++ Application definition
@@ -175,16 +175,16 @@ padding: 10px;
 .bottomCalendar .calendarDay {
 color:darkred;
 font-size:large;
-padding:2px;
-padding-bottom: 10px;
+padding:12px;
 }
 .bottomCalendar .today .calendarDay {
 color: black;
 }
 .bottomCalendar .calenderDescription {
 font-size: x-small;
-padding-left: 3px;
+padding: 0 12px;
 color: saddleBrown;
+line-height: 1em;
 }
 </style>
 %CALENDAR{%CALENDAROPTIONS%}%
