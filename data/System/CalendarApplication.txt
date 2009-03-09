@@ -48,7 +48,7 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 		  SUMMARYFIELD="Message"
 		  DATEWEB="FoswikiApplicationData"
 		  TOPICS="*"
-		  CALENDAROPTIONS="topic=\"%SYSTEMWEB%.%TOPIC%\" showweekdayheaders=\"1\" cellclass=\"day $wday $day $month $year\" tableclass=\"%URLPARAM{"calcss" default="simpleCalendarCss"}%\" aslist=\"%URLPARAM{"aslist" default="0"}%\" datenumberformat=\"<div class='calendarDate'><div class='calendarDay'>$day</div><div class='calenderDescription'></div></div>\" format=\"<div class='calendarDate'><div class='calendarDay'>$day</div><div class='calenderDescription'>$description</div></div>\""
+		  CALENDAROPTIONS="topic=\"%SYSTEMWEB%.%TOPIC%\" showweekdayheaders=\"1\" cellclass=\"day $wday $day $month $year\" tableclass=\"%URLPARAM{"calcss" default="simpleCalendarCss"}%\" aslist=\"%URLPARAM{"aslist" default="0"}%\" datenumberformat=\"<div class='calendarDay'>$day</div>\" format=\"<div class='calendarDate'>$old<div class='calenderDescription'>$description</div></div>\""
 }% 
 %STOPINCLUDE%
 
