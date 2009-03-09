@@ -74,13 +74,13 @@ return sOut;
 //-->
 </script>
 %TABLE{tablewidth="99%"  }%
+| *User* | %IF{"$ ALLOWLOGINNAME" then="*login*  | "}%*emails* | *HomePage* |*groups* | ** |
 %SEARCH{
 	 web="%USERSWEB%"
 	 "form.name~'*.UserForm'"
 	 type="query"
 	 nonoise="on"
 	 order="topic"
-	 header="| *User* | %IF{"$ ALLOWLOGINNAME" then="*login*  | "}%*emails* | *HomePage* |*groups* | ** |"
 	 format="$percntINCLUDE{
 			   $quot%WEB%.%TOPIC%$quot
 			   ITEM=$quot$topic$quot

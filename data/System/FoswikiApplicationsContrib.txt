@@ -8,11 +8,13 @@ One line description, required for extensions repository catalog.
 %TOC%
 
 ---++ Usage
-Each of these applications can be added to any topic in your Wiki, _just_ by including it: =%<nop>INCLUDE{"%SYSTEMWEB%.TodoApplication"}%=
+Each of these applications can be added to any topic in your Wiki, _just_ by including it, eg.: =%<nop>INCLUDE{"%SYSTEMWEB%.TodoApplication"}%=
 ---++ Examples
 ---+++ NewsApplication
 ---+++ TodoApplication
+---+++ CalendarApplication
 ---+++ ImagesApplication
+Also requires Foswiki:Extensions.SetTopicValuesPlugin
 ---+++ UserManagementApplication
 
 ---++ Implementation details

@@ -39,6 +39,7 @@ to display todo Items from _all_ categories:
 </style>
 
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
+| *State* | *Message*  | *Date* | ** |
 %SEARCH{
 	 web="FoswikiApplicationData"
 	 topic="%TOPIC%*"
@@ -49,7 +50,6 @@ to display todo Items from _all_ categories:
 	 type="query"
 	 nonoise="on"
 	 order="formfield(Date)"
-	 header="| *State* | *Message*  | *Date* | ** |"
 	 format="$percntINCLUDE{
 			   $quot%WEB%.%TOPIC%$quot
 			   nosection=$quotview_item$quot

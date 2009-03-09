@@ -38,6 +38,7 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 </style>
 
 %TABLE{tablewidth="99%" columnwidths="16em,80%,6em" }%
+| *Date Posted* | *Message*  | ** |
 %SEARCH{
 	 web="%IF{"defined STOREIN" then="%STOREIN%" else="FoswikiApplicationData"}%"
 	 topic="%TOPIC%*"
@@ -50,7 +51,6 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 	 type="query"
 	 nonoise="on"
 	 order="formfield(Date)"
-	 header="| *Date Posted* | *Message*  | ** |"
 	 format="$percntINCLUDE{
 			   $quot%WEB%.%TOPIC%$quot
 			   nosection=$quotview_item$quot
