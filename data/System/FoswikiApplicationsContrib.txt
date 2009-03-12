@@ -15,8 +15,14 @@ Each of these applications can be added to any topic in your Wiki, _just_ by inc
 ---+++ CalendarApplication
 ---+++ ImagesApplication
 Also requires Foswiki:Extensions.SetTopicValuesPlugin
----+++ UserManagementApplication
-
+---+++ System administration tools
+   * SystemAdmin.UserManagement
+   * SystemAdmin.SiteSettings
+   * SystemAdmin.WebSettings
+   * SystemAdmin.TopicSettings
+   * SystemAdmin.UserSettings
+   * SystemAdmin.VisualSettings
+   
 ---++ Implementation details
 All applications use %SYSTEMWEB%.FormsPlugin, and store their data in a hidden FoswikiApplicationData web.
 

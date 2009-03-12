@@ -9,7 +9,8 @@ data/System/CalendarApplication.txt 0644
 pub/System/CalendarApplication/calandericons.png
 pub/System/CalendarApplication/day-bg.png
 
-data/System/UserManagementApplication.txt 0644 
+#SystemAdmin Web
+data/SystemAdmin/UserManagementApplication.txt 0644 
 
 
 #ImagesApp
