@@ -10,8 +10,20 @@ pub/System/CalendarApplication/calandericons.png
 pub/System/CalendarApplication/day-bg.png
 
 #SystemAdmin Web
-data/SystemAdmin/UserManagementApplication.txt 0644 
-
+data/SystemAdmin/UserManagement.txt 0644 
+data/SystemAdmin/WebAtom.txt
+data/SystemAdmin/WebChanges.txt
+data/SystemAdmin/WebCreateNewTopic.txt
+data/SystemAdmin/WebHome.txt
+data/SystemAdmin/WebIndex.txt
+data/SystemAdmin/WebLeftBar.txt
+data/SystemAdmin/WebNotify.txt
+data/SystemAdmin/WebPreferences.txt
+data/SystemAdmin/WebRss.txt
+data/SystemAdmin/WebSearch.txt
+data/SystemAdmin/WebSearchAdvanced.txt
+data/SystemAdmin/WebStatistics.txt
+data/SystemAdmin/WebTopicList.txt
 
 #ImagesApp
 data/System/ImagesApplication.txt 0644 
