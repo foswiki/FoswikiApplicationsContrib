@@ -16,6 +16,7 @@ Each of these applications can be added to any topic in your Wiki, _just_ by inc
 ---+++ ImagesApplication
 Also requires Foswiki:Extensions.SetTopicValuesPlugin
 ---+++ System administration tools
+see the SystemAdmin.WebHome web
    * SystemAdmin.UserManagement
    * SystemAdmin.SiteSettings
    * SystemAdmin.WebSettings
@@ -24,7 +25,7 @@ Also requires Foswiki:Extensions.SetTopicValuesPlugin
    * SystemAdmin.VisualSettings
    
 ---++ Implementation details
-All applications use %SYSTEMWEB%.FormsPlugin, and store their data in a hidden FoswikiApplicationData web.
+All applications use %SYSTEMWEB%.FormPlugin, and store their data in a hidden =FoswikiApplicationData= web.
 
 As the form definition is stored in the application topic, all data topics will also have the same name (with AUTOINC) to simplify searches.
 

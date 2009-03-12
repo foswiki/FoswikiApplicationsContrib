@@ -1,19 +1,40 @@
 %META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.0" version="$Rev: 1838 $"}%
----+!! %MAKETEXT{"Welcome to the [_1] web" args="<nop>%WEB%"}%
+---+!! %WIKITOOLNAME% Control Panel
 
----++ %MAKETEXT{"Available Information"}%
-   * ...
-   * ...
-   * ...
- 
----++ <nop>%WEB% Web Utilities
-<form action='%SCRIPTURLPATH{"search"}%/%WEB%/'>
-   * <input type="text" name="search" size="22" />&nbsp;<input type="submit" class="foswikiSubmit" value="%MAKETEXT{"Search"}%" /> - [[WebSearchAdvanced][%MAKETEXT{"advanced search"}%]]
-   * WebTopicList - all topics in alphabetical order
-   * WebChanges - recent topic changes in this web
-   * WebNotify - subscribe to an e-mail alert sent when topics change
-   * WebRss, WebAtom - RSS and ATOM news feeds of topic changes
-   * WebStatistics - listing popular topics and top contributors
-   * WebPreferences - preferences of this web
-</form>
+<div class="foswikiLeft" style="width: 200px; margin: 12px;">
+---++ [[%WEB%/SiteSettings][Site Settings]]
+update Site wide settings, permissions, logos, copyright...
+</div>
 
+<div class="foswikiLeft" style="width: 200px; margin: 12px;">
+---++ [[%WEB%/WebSettings][Web Settings]]
+update Web wide settings, logos, copyright...
+</div>
+
+<div class="foswikiLeft" style="width: 200px; margin: 12px;">
+---++ [[%WEB%/TopicSettings][Topic Settings]]
+update Topic specific settings, permissions, logos, copyright...
+</div>
+
+<div class="foswikiLeft" style="width: 200px; margin: 12px;">
+---++ [[%WEB%/VisualSettings][Visual Settings]]
+change the look and feel of your Foswiki 
+</div>
+
+<div class="foswikiLeft" style="width: 200px; margin: 12px;">
+---++ [[%WEB%/UserManagement][User Management]]
+disable / invite users, reset passwords, change group memberships
+</div>
+
+<div class="foswikiLeft" style="width: 200px; margin: 12px;">
+---++ [[%WEB%/UserSettings][User Settings]]
+update User  settings - Timezone...
+</div>
+
+
+<div class="foswikiClear"> 
+%BR%
+---
+from %SYSTEMWEB%.FoswikiApplicationsContrib by SvenDowideit@fosiki.com 
+%BR%
+</div>

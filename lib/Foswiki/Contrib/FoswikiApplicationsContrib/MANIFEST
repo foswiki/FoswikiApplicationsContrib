@@ -11,6 +11,8 @@ pub/System/CalendarApplication/day-bg.png
 
 #SystemAdmin Web
 data/SystemAdmin/UserManagement.txt 0644 
+data/SystemAdmin/SiteSettings.txt 0644 
+
 data/SystemAdmin/WebAtom.txt
 data/SystemAdmin/WebChanges.txt
 data/SystemAdmin/WebCreateNewTopic.txt
