@@ -1,0 +1,78 @@
+
+---+!! Visual Settings
+Changes the settings on %USERSWEB%.SitePreferences
+
+---++ Site Logo
+   * __TODO:__ use the FormPlugin upload to combin uplaod& set this setting
+%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
+	 SETTING="WIKILOGOIMG"
+	 DESC="Full URL to an image to use as the site's logo (need to attach/upload it to the server first.)"
+}%
+
+%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
+	 SETTING="WIKILOGOURL"
+	 DESC="URL to goto if the user clicks on the Logo"
+}%
+
+%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
+	 SETTING="WIKILOGOALT"
+	 DESC="Alternative text if the logo can't be displayed, or tooltip"
+}%
+
+---++ Misc
+%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
+	 SETTING="SKIN"
+	 DESC="select a skin"
+}%
+
+
+
+
+----
+<!-- TODO: move out to a seperate utility topic.
+   * SETTING == Set variable name
+   * DESC == description the user sees
+   * UNSET == allow the setting to be set to blank
+%STARTSECTION{"textsetting"}%<style>
+.foswikiSettingForm .formValue {
+padding: 50px;
+}
+.foswikiSettingForm .formPluginTitle {
+padding-right: 12px;
+}
+.foswikiSettingForm p {
+display: inline;
+background: wheat;
+}
+.NOfoswikiSettingForm {
+border: 1px solid #2989BB;
+width: 80%;
+margin: 11px 22px;
+padding: 11px 22px;
+}
+</style><div class="foswikiHelp foswikiSettingForm">
+%STARTFORM{
+	 name="Set %SETTING%"
+	 action="save"
+	 topic="%USERSWEB%.SitePreferences"
+	 method="POST"
+	 redirectto="%BASEWEB%.%BASETOPIC%"
+	 sep=" "
+	 NOshowerrors="off"
+	 validate="%IF{"defined 'UNSET'" then="off" else="on"}%"
+}% %FORMELEMENT{
+	 name="Set %SETTING%"
+	 mandatory="%IF{"defined 'UNSET'" then="off" else="on"}%"
+	 format="<span class='formSetting'>$t %BR%<span class='formValue'> $e </span></span>"
+	 default="%%SETTING%%"
+	 type="textarea"
+	 title="%DESC% (%SETTING%)"
+	 size="32"
+	 rows="1"
+	 cols="45"
+}% %FORMELEMENT{
+	 type="submit"
+	 buttonlabel="Set"
+}% %ENDFORM% </div>
+%ENDSECTION{"textsetting"}%
+-->
