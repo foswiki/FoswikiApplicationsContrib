@@ -18,23 +18,6 @@ Changes the settings on %USERSWEB%.SitePreferences
 	 DESC="Simplified copyright notice for RSS feeds"
 }%
 
----++ Site Logo
-   * __TODO:__ use the FormPlugin upload to combin uplaod& set this setting
-%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
-	 SETTING="WIKILOGOIMG"
-	 DESC="Full URL to an image to use as the site's logo (need to attach/upload it to the server first.)"
-}%
-
-%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
-	 SETTING="WIKILOGOURL"
-	 DESC="URL to goto if the user clicks on the Logo"
-}%
-
-%INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
-	 SETTING="WIKILOGOALT"
-	 DESC="Alternative text if the logo can't be displayed, or tooltip"
-}%
-
 ---++ Misc
 %INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
 	 SETTING="ATTACHFILESIZELIMIT"
@@ -43,13 +26,17 @@ Changes the settings on %USERSWEB%.SitePreferences
 
 %INCLUDE{ "%BASEWEB%.%BASETOPIC%" section="textsetting"
 	 SETTING="BROADCASTMESSAGE"
-	 DESC="Broadcast message to show on all topic views (IMPORTANT: Set to empty message if not used)"	 UNSET="on"
+	 DESC="Broadcast message to show on all topic views (IMPORTANT: Set to empty message if not used)"
+	 UNSET="on"
 }%
 
 
 
 ----
-<!-- TODO: move out to a seperate utility topic.   * SETTING == Set variable name   * DESC == description the user sees   * UNSET == allow the setting to be set to blank
+<!-- TODO: move out to a seperate utility topic.
+   * SETTING == Set variable name
+   * DESC == description the user sees
+   * UNSET == allow the setting to be set to blank
 %STARTSECTION{"textsetting"}%<style>
 .foswikiSettingForm .formValue {
 padding: 50px;
@@ -84,7 +71,9 @@ padding: 11px 22px;
 	 default="%%SETTING%%"
 	 type="textarea"
 	 title="%DESC% (%SETTING%)"
-	 size="32"	 rows="1"	 cols="45"
+	 size="32"
+	 rows="1"
+	 cols="45"
 }% %FORMELEMENT{
 	 type="submit"
 	 buttonlabel="Set"
