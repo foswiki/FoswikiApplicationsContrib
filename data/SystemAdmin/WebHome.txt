@@ -3,31 +3,37 @@
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
 ---++ [[%WEB%/SiteSettings][Site Settings]]
+%PUBURL%/SystemAdmin/WebHome/gtk-home.png
 update Site wide settings, permissions, logos, copyright...
 </div>
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
 ---++ [[%WEB%/WebSettings][Web Settings]]
+%PUBURL%/SystemAdmin/WebHome/stock_folder.png
 update Web wide settings, logos, copyright...
 </div>
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
 ---++ [[%WEB%/TopicSettings][Topic Settings]]
+%PUBURL%/SystemAdmin/WebHome/gtk-edit.png
 update Topic specific settings, permissions, logos, copyright...
 </div>
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
 ---++ [[%WEB%/VisualSettings][Visual Settings]]
+%PUBURL%/SystemAdmin/WebHome/stock_search.png
 change the look and feel of your Foswiki 
 </div>
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
 ---++ [[%WEB%/UserManagement][User Management]]
+%PUBURL%/SystemAdmin/WebHome/stock_people.png
 disable / invite users, reset passwords, change group memberships
 </div>
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
 ---++ [[%WEB%/UserSettings][User Settings]]
+%PUBURL%/SystemAdmin/WebHome/stock_person.png
 update User  settings - Timezone...
 </div>
 
