@@ -11,7 +11,7 @@ items can be filtered using the %SYSTEMWEB%.QuerySearch syntax,  change the INCL
 		  FILTER="fields[name='Date'].value != ''" 
 		  DATEFIELD="Date" 
 		  SUMMARYFIELD="Summary"
-		  WEB="FosikiApplicationData"
+		  WEB="FoswikiApplicationData"
 		  TOPICS="TodoApplication*"
 		  CALENDAROPTIONS=""
 	   }%
