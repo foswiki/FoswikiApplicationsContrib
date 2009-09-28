@@ -86,8 +86,7 @@ return sOut;
 			   ITEM=$quot$topic$quot
 			   section=$quot$percntIF{$quot'$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
 			   }$percnt"
-}%
-%INCLUDE{
+}%%INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"
 				    defined 'item' OR 

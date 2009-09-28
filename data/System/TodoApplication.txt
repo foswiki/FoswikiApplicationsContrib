@@ -56,8 +56,7 @@ to display todo Items from _all_ categories:
 			   ITEM=$quot$web.$topic$quot
 			   section=$quot$percntIF{$quot'$web.$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
 			   }$percnt"
-}%
-%INCLUDE{
+}%%INCLUDE{
 	"%WEB%.%TOPIC%"
 	section="%IF{"defined 'item'" then="nothing" else="edit_item"}%"
 	warn="off"
@@ -115,6 +114,7 @@ to display todo Items from _all_ categories:
 %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}% \
 %FORMELEMENT{type="hidden" name="%IF{"defined 'ITEM'" then="item" else="nothingtoseehere"}%" default="%ITEM%"}% \
  | %FORMELEMENT{
+	 name="%TOPIC%%BASETOPIC%%CATEGORY%_submit"
 	 type="submit"
 	 buttonlabel="Submit"
 }% %IF{"defined 'ITEM'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""}% %ENDFORM% |%ENDSECTION{"edit_item"}%

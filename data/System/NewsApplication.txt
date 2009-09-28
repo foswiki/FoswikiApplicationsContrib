@@ -57,8 +57,7 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 			   ITEM=$quot$web.$topic$quot
 			   section=$quot$percntIF{$quot'$web.$topic' = $item$quot then=$quotedit_item$quot else=$quotview_item$quot}$percnt$quot
 			   }$percnt"
-}% 
-%INCLUDE{
+}% %INCLUDE{
 	"%WEB%.%TOPIC%"
 	warn="off"
 	section="%IF{"
@@ -141,6 +140,7 @@ If you define the %USERSWEB%.NewsApplicationGroup group, they will be the only u
 %FORMELEMENT{type="hidden" name="topicparent" default="%BASEWEB%.%BASETOPIC%"}% \
 %FORMELEMENT{type="hidden" name="%IF{"defined 'ITEM'" then="item" else="nothingtoseehere"}%" default="%ITEM%"}% \
 %FORMERROR{"%TOPIC%%BASETOPIC%%CATEGORY%"}%  | %FORMELEMENT{
+	 name="%TOPIC%%BASETOPIC%%CATEGORY%_submit"
 	 type="submit"
 	 buttonlabel="Submit"
 }% \

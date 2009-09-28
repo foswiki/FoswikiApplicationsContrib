@@ -116,6 +116,7 @@ some attachments to this topic or  %BR%
 	 size="1"
 }% %FORMELEMENT{type="hidden" name="%IF{"defined 'IMAGE'" then="item" else="nothingtoseehere"}%" default="%IMAGE%"
 }%  %FORMELEMENT{
+	 name="%TOPIC%%BASETOPIC%%IMAGE%_submit"
 	 type="submit"
 	 buttonlabel="Submit"
 }% %IF{"defined 'IMAGE'" then="<a class='foswikiButton foswikiCancelButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%'>Cancel</a>" else=""
