@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.0" version="$Rev: 1838 $"}%
+%META:TOPICINFO{author="ProjectContributor" date="1407719238" format="1.1" version="1"}%
 ---+!! %WIKITOOLNAME% Control Panel
 
 <div class="foswikiLeft" style="width: 200px; margin: 12px;">
